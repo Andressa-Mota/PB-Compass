@@ -1,0 +1,1051 @@
+{
+	"info": {
+		"_postman_id": "dc69fd27-04ce-407a-902b-81ead128ff7a",
+		"name": "Teste API ServeRest",
+		"description": "Coleção para testes da API Serverest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47398291",
+		"_collection_link": "https://dhee-andressa-6061756.postman.co/workspace/ServeRest~9f68c45c-8cfc-49fd-a1cb-cd6addea0533/collection/47398291-dc69fd27-04ce-407a-902b-81ead128ff7a?action=share&source=collection_link&creator=47398291"
+	},
+	"item": [
+		{
+			"name": "Usuários",
+			"item": [
+				{
+					"name": "Criar usuários",
+					"item": [
+						{
+							"name": "Criar Usuário",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"let numero = Date.now(); \r",
+											"\r",
+											"\r",
+											"let email = `andressa${numero}@serverest.dev`;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_email\", email);\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_nome\", \"andressa\");\r",
+											"\r",
+											"console.log(\"Novo email gerado:\", email);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"{{novo_nome}}\",\r\n  \"email\": \"{{novo_email}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								},
+								"description": "Teste Para criação de usuário  \nResultados esperados:  \n\\-Responde code: 200"
+							},
+							"response": []
+						},
+						{
+							"name": "Criar segundo usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											"let numero = Date.now(); \r",
+											"\r",
+											"\r",
+											"let email = `Mota${numero}.teste@serverest.dev`;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_email2\", email);\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_nome2\", \"Mota\");\r",
+											"\r",
+											"console.log(\"Novo email gerado:\", email);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"{{novo_nome2}}\",\r\n  \"email\": \"{{novo_email2}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								},
+								"description": "Teste Para criação de usuário  \nResultados esperados:  \n\\-Responde code: 200"
+							},
+							"response": []
+						},
+						{
+							"name": "Email duplicado",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Este email já está sendo usado\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Silva\",\r\n  \"email\": \"{{novo_email2}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								},
+								"description": "Teste Para criação de usuário com e-mail já Teste para  \nResultados esperados:  \n\\-Responde code: 400"
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario com Gmail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let numero = Date.now(); \r",
+											"\r",
+											"\r",
+											"let email = `usergmail${numero}@gmail.com`;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_gmail\", email);\r",
+											"\r",
+											"\r",
+											"\r",
+											"console.log(\"Novo email gerado:\", email);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Andressa\",\r\n  \"email\": \"{{novo_gmail}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								},
+								"description": "Teste para criação de usuário com domínio Gmail  \nResultados esperados:  \n\\-Responde code: 400"
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario com Hotmail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let numero = Date.now(); \r",
+											"\r",
+											"\r",
+											"let email = `userhot${numero}@hotmail.com`;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_hotmail\", email);\r",
+											"\r",
+											"\r",
+											"\r",
+											"console.log(\"Novo email gerado:\", email);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Andressa\",\r\n  \"email\": \"{{novo_hotmail}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								},
+								"description": "Teste para criação de usuário com domínio Hotmail  \nResultados esperados:  \n\\-Responde code: 400"
+							},
+							"response": []
+						}
+					],
+					"description": "Pasta contendo todas as requisições POST para usuários"
+				},
+				{
+					"name": "Atualizar Usuários",
+					"item": [
+						{
+							"name": "usuario com id inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"usuario02\",\r\n  \"email\": \"teste{{novo_email}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios/0uxuPY0cbmQhp",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios",
+										"0uxuPY0cbmQhp"
+									]
+								},
+								"description": "Teste para realizar alterações em um usuário com ID inexistente  \nResultados esperados:  \n\\-Responde code: 201\n\n\\-Nesse caso deve-se criar um novo usuário"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Listar Usuários",
+					"item": [
+						{
+							"name": "Listar usuários",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/usuarios",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								},
+								"description": "Teste para Listar os usuários existentes  \nResultados esperados:  \n\\-Responde code: 200"
+							},
+							"response": []
+						}
+					],
+					"description": "Pasta contendo todas as requisições GET de Usuários"
+				},
+				{
+					"name": "Deletar Usuários",
+					"item": [
+						{
+							"name": "deletar usuario invalido",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Andressa\",\r\n  \"email\": \"Andressa@gmail.com\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}"
+								},
+								"url": {
+									"raw": "{{baseURL}}/usuarios/123invalidid",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"usuarios",
+										"123invalidid"
+									]
+								},
+								"description": "Teste para excluir usuário inexistente  \nResultados esperados:  \n\\-Responde code: 400"
+							},
+							"response": []
+						}
+					],
+					"description": "Pasta contendo todas as requisições DELETE de Usuários"
+				}
+			],
+			"description": "Pasta contendo todas as requisições do caminho de Usuários"
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login User Válido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let resposta = pm.response.json();\r",
+									"\r",
+									"let token = resposta.authorization;\r",
+									"\r",
+									"\r",
+									"pm.globals.set(\"token\", token);\r",
+									"\r",
+									"console.log(\"Novo token salvo:\", token);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\":\"{{novo_email}}\",\r\n  \"password\": \"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Teste para realização de login  \nResultados esperados:  \n\\-Responde code: 200"
+					},
+					"response": []
+				},
+				{
+					"name": "user com senha incorreta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"{{novo_email}}\",\r\n  \"password\": \"senhaerrada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Teste para realização de login utilizando uma senha incorreta  \nResultados esperados:  \n\\-Responde code: 401"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User inexistente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"inexistente.teste@serverest.dev\",\r\n  \"password\": \"teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://compassuol.serverest.dev/login",
+							"protocol": "https",
+							"host": [
+								"compassuol",
+								"serverest",
+								"dev"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Pasta contendo todas as requisições do caminho de Login"
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Cadastrar produtos",
+					"item": [
+						{
+							"name": "cadastrar produto",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"let numero = Date.now(); \r",
+											"\r",
+											"\r",
+											"let produto = `protudotest${numero}`;\r",
+											"\r",
+											"\r",
+											"pm.environment.set(\"novo_produto\", produto);\r",
+											"\r",
+											"\r",
+											"\r",
+											"console.log(\"Novo produto gerado:\", produto);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\":\" {{novo_produto}}\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Testedeproduto\",\r\n  \"quantidade\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/produtos",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos"
+									]
+								},
+								"description": "Teste para realizar cadastro de um produto  \nResultados esperados:  \n\\-Responde code: 201"
+							},
+							"response": []
+						},
+						{
+							"name": "cadastrar produto (token expirado)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJlc3NhLnRlc3RlQHNlcnZlcmVzdC5kZXYiLCJwYXNzd29yZCI6InRlc3RlIiwiaWF0IjoxNzU1MDM0ODQ2LCJleHAiOjE3NTUwMzU0NDZ9.2kPzT7fokCcf9rJKHvIpJjgxhOd2tPLpHUNMk2vnGKs",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"{{novo_produto}}00\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Testedeproduto\",\r\n  \"quantidade\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/produtos",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos"
+									]
+								},
+								"description": "Teste para realizar cadastro de um produto utilizando um token expirado.  \nObs. os Tokens devem expirar a cada 10 minutos.  \nResultados esperados:  \n\\-Responde code: 401"
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar prod. duplicado",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"{{novo_produto}}\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Testedeproduto\",\r\n  \"quantidade\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/produtos",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos"
+									]
+								},
+								"description": "Teste para realizar cadastro de um produto que já está cadastrado, ou seja, duplicado.  \n  \nResultados esperados:  \n\\-Responde code: 400"
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar prod. s/autenticação",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"{{novo_produto}}004\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Testedeproduto\",\r\n  \"quantidade\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/produtos",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos"
+									]
+								},
+								"description": "Teste para realizar cadastro de um produto sem informar token/autenticação.  \nResultados esperados:  \n\\-Responde code: 401"
+							},
+							"response": []
+						}
+					],
+					"description": "Pasta contendo todas as requisições POST de Produtos"
+				},
+				{
+					"name": "Atualizar produtos",
+					"item": [
+						{
+							"name": "atualizar produto com id invalido",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"{{novo_produto}}001\",\r\n  \"preco\": 470,\r\n  \"descricao\": \"Testedeproduto\",\r\n  \"quantidade\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/produtos/idinexistente000",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos",
+										"idinexistente000"
+									]
+								},
+								"description": "Teste para atuaçizar um produto com ID inválido.  \nResultados esperados:  \n\\-Responde code: 201  \n\\-Nesse caso deve-se criar um novo produto"
+							},
+							"response": []
+						}
+					],
+					"description": "Pasta contendo todas as requisições PUT de Produtos"
+				},
+				{
+					"name": "Listar produtos",
+					"item": [
+						{
+							"name": "Listar Produtos",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/produtos",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos"
+									]
+								},
+								"description": "Teste para listar produtos existentes\n\nResultados esperados:  \n\\-Responde code: 200"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Deletar Produtos",
+					"item": [
+						{
+							"name": "Deletar produto em carrinho",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseURL}}/produtos/hQgsegIos8IqCoYX",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"produtos",
+										"hQgsegIos8IqCoYX"
+									]
+								},
+								"description": "Teste para deletar produto vinculado à um carrinho de compras\n\nResultados esperados:  \n\\-Responde code: 400"
+							},
+							"response": []
+						}
+					],
+					"description": "Pasta contendo todas as requisições DELETE de Produtos"
+				}
+			],
+			"description": "Pasta contendo todas as requisições do caminho de Produtos"
+		},
+		{
+			"name": "Carrinhos",
+			"item": [
+				{
+					"name": "Listar Carrinhos",
+					"item": [
+						{
+							"name": "Listar carrinhos",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/carrinhos",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"carrinhos"
+									]
+								},
+								"description": "Teste para listar carrinhos existentes\n\nResultados esperados:  \n\\-Responde code: 200"
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"description": "Pasta contendo todas as requisições do caminho de Carrinhos"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(pm.info.requestName);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://compassuol.serverest.dev",
+			"type": "default"
+		}
+	]
+}

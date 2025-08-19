@@ -1,0 +1,617 @@
+{
+	"id": "49b12fd4-3627-48d1-8de1-5d20380483cb",
+	"name": "Teste API ServeRest",
+	"timestamp": "2025-08-18T20:15:11.547Z",
+	"collection_id": "47398291-dc69fd27-04ce-407a-902b-81ead128ff7a",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 17,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-08-18T20:15:03.090Z",
+	"totalFail": 3,
+	"results": [
+		{
+			"id": "e370110f-c632-4490-94b3-6d5f9b8babed",
+			"name": "Criar Usuário",
+			"url": "https://compassuol.serverest.dev/usuarios",
+			"time": 928,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				928
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "3b3fb7b3-955a-4137-b2d6-dd9b8caab17a",
+			"name": "Criar segundo usuario",
+			"url": "https://compassuol.serverest.dev/usuarios",
+			"time": 206,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				206
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "e57dfe4f-7911-436e-8b60-e414f407523a",
+			"name": "Email duplicado",
+			"url": "https://compassuol.serverest.dev/usuarios",
+			"time": 201,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true,
+				"Body matches string": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Body matches string": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				201
+			],
+			"allTests": [
+				{
+					"Status code is 400": true,
+					"Body matches string": true
+				}
+			]
+		},
+		{
+			"id": "01749b0a-85a7-42eb-b747-56875f3a8995",
+			"name": "Usuario com Gmail",
+			"url": "https://compassuol.serverest.dev/usuarios",
+			"time": 221,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 400": false
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				221
+			],
+			"allTests": [
+				{
+					"Status code is 400": false
+				}
+			]
+		},
+		{
+			"id": "ef1e91e0-f1e0-4b28-b1fa-491a28cfab97",
+			"name": "Usuario com Hotmail",
+			"url": "https://compassuol.serverest.dev/usuarios",
+			"time": 231,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 400": false
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				231
+			],
+			"allTests": [
+				{
+					"Status code is 400": false
+				}
+			]
+		},
+		{
+			"id": "f794c924-b440-4e2a-88a2-4375d45e88b8",
+			"name": "usuario com id inexistente",
+			"url": "https://compassuol.serverest.dev/usuarios/0uxuPY0cbmQhp",
+			"time": 216,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				216
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "0e0f60fc-b3e3-46aa-a8f8-114c0ba1ed0b",
+			"name": "Listar usuários",
+			"url": "https://compassuol.serverest.dev/usuarios",
+			"time": 387,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				387
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "5e4172bb-7f56-4ca2-a1b2-0077b27fa555",
+			"name": "deletar usuario invalido",
+			"url": "https://compassuol.serverest.dev/usuarios/123invalidid",
+			"time": 211,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 400": false
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				211
+			],
+			"allTests": [
+				{
+					"Status code is 400": false
+				}
+			]
+		},
+		{
+			"id": "cbf130b5-84e5-4d6a-9ede-fdc3280289dd",
+			"name": "Login User Válido",
+			"url": "https://compassuol.serverest.dev/login",
+			"time": 199,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				199
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "17404866-5bb6-4a33-8f72-e54f7ab08ba7",
+			"name": "user com senha incorreta",
+			"url": "https://compassuol.serverest.dev/login",
+			"time": 223,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status code is 401": true
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				223
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			]
+		},
+		{
+			"id": "ace7828f-d35e-43df-8236-cec9bbc2ab74",
+			"name": "Login User inexistente",
+			"url": "https://compassuol.serverest.dev/login",
+			"time": 213,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status code is 401": true
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				213
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			]
+		},
+		{
+			"id": "9e592c80-fe5c-4866-9c06-e5b72944751c",
+			"name": "cadastrar produto",
+			"url": "https://compassuol.serverest.dev/produtos",
+			"time": 221,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				221
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "08cb9a08-b5ac-4f47-8ff1-2e785159362b",
+			"name": "cadastrar produto (token expirado)",
+			"url": "https://compassuol.serverest.dev/produtos",
+			"time": 217,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status code is 401": true
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				217
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			]
+		},
+		{
+			"id": "75462af8-4010-4b2e-a37c-c6891cdfabae",
+			"name": "Cadastrar prod. duplicado",
+			"url": "https://compassuol.serverest.dev/produtos",
+			"time": 218,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				218
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "eb782748-579f-4ad4-aac8-47b5ef40ccc3",
+			"name": "Cadastrar prod. s/autenticação",
+			"url": "https://compassuol.serverest.dev/produtos",
+			"time": 196,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"Status code is 401": true
+			},
+			"testPassFailCounts": {
+				"Status code is 401": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				196
+			],
+			"allTests": [
+				{
+					"Status code is 401": true
+				}
+			]
+		},
+		{
+			"id": "37e47eee-8538-49aa-9426-0cff083e51fb",
+			"name": "atualizar produto com id invalido",
+			"url": "https://compassuol.serverest.dev/produtos/idinexistente000",
+			"time": 223,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status code is 201": true
+			},
+			"testPassFailCounts": {
+				"Status code is 201": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				223
+			],
+			"allTests": [
+				{
+					"Status code is 201": true
+				}
+			]
+		},
+		{
+			"id": "6e2b7506-dbeb-4f18-903f-9ae442b107d6",
+			"name": "Listar Produtos",
+			"url": "https://compassuol.serverest.dev/produtos",
+			"time": 223,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				223
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "8a64cefd-3b7d-42be-9289-4da2e9ce43bf",
+			"name": "Deletar produto em carrinho",
+			"url": "https://compassuol.serverest.dev/produtos/hQgsegIos8IqCoYX",
+			"time": 244,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status code is 400": true
+			},
+			"testPassFailCounts": {
+				"Status code is 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				244
+			],
+			"allTests": [
+				{
+					"Status code is 400": true
+				}
+			]
+		},
+		{
+			"id": "858bc578-d2ec-4e9e-a30e-4a1fd7a26283",
+			"name": "Listar carrinhos",
+			"url": "https://compassuol.serverest.dev/carrinhos",
+			"time": 211,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				211
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 4989,
+	"collection": {
+		"requests": [
+			{
+				"id": "e370110f-c632-4490-94b3-6d5f9b8babed",
+				"method": "POST"
+			},
+			{
+				"id": "3b3fb7b3-955a-4137-b2d6-dd9b8caab17a",
+				"method": "POST"
+			},
+			{
+				"id": "e57dfe4f-7911-436e-8b60-e414f407523a",
+				"method": "POST"
+			},
+			{
+				"id": "01749b0a-85a7-42eb-b747-56875f3a8995",
+				"method": "POST"
+			},
+			{
+				"id": "ef1e91e0-f1e0-4b28-b1fa-491a28cfab97",
+				"method": "POST"
+			},
+			{
+				"id": "f794c924-b440-4e2a-88a2-4375d45e88b8",
+				"method": "PUT"
+			},
+			{
+				"id": "0e0f60fc-b3e3-46aa-a8f8-114c0ba1ed0b",
+				"method": "GET"
+			},
+			{
+				"id": "5e4172bb-7f56-4ca2-a1b2-0077b27fa555",
+				"method": "DELETE"
+			},
+			{
+				"id": "cbf130b5-84e5-4d6a-9ede-fdc3280289dd",
+				"method": "POST"
+			},
+			{
+				"id": "17404866-5bb6-4a33-8f72-e54f7ab08ba7",
+				"method": "POST"
+			},
+			{
+				"id": "ace7828f-d35e-43df-8236-cec9bbc2ab74",
+				"method": "POST"
+			},
+			{
+				"id": "9e592c80-fe5c-4866-9c06-e5b72944751c",
+				"method": "POST"
+			},
+			{
+				"id": "08cb9a08-b5ac-4f47-8ff1-2e785159362b",
+				"method": "POST"
+			},
+			{
+				"id": "75462af8-4010-4b2e-a37c-c6891cdfabae",
+				"method": "POST"
+			},
+			{
+				"id": "eb782748-579f-4ad4-aac8-47b5ef40ccc3",
+				"method": "POST"
+			},
+			{
+				"id": "37e47eee-8538-49aa-9426-0cff083e51fb",
+				"method": "PUT"
+			},
+			{
+				"id": "6e2b7506-dbeb-4f18-903f-9ae442b107d6",
+				"method": "GET"
+			},
+			{
+				"id": "8a64cefd-3b7d-42be-9289-4da2e9ce43bf",
+				"method": "DELETE"
+			},
+			{
+				"id": "858bc578-d2ec-4e9e-a30e-4a1fd7a26283",
+				"method": "GET"
+			}
+		]
+	}
+}
