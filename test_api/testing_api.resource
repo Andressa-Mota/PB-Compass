@@ -1,7 +1,7 @@
 *** Settings ***
 Library  RequestsLibrary
 Library  String
-Library    Collections
+Library  Collections
 
 *** Keywords ***
 

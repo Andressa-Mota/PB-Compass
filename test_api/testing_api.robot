@@ -1,6 +1,8 @@
 *** Settings ***
 
 Resource  testing_api.resource
+Resource  commom.robot
+
 
 
 *** Test Cases ***
@@ -41,3 +43,10 @@ Cenario 07: Login com sucesso
     [Tags]    POST
     Login com usuario     eve.holt@reqres.in    cityslicka    200
     Fazer login
+
+Cenario 08: Criar usário de massa estatica 
+    [Tags]    POST
+    Criar sessao na api
+    ${resposta}    login na api    user_valido    200
+    Dictionary Should Contain Key    ${resposta}    token
+    Log    Token gerado: ${resposta["token"]}
