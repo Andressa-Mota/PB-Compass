@@ -1,8 +1,7 @@
 *** Settings ***
 
-Resource  testing_api.resource
-Resource  commom.robot
-
+Resource  ../keywords/testing_api.resource
+Resource  ../keywords/commom.robot
 
 
 *** Test Cases ***

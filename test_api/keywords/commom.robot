@@ -8,12 +8,12 @@ Library    JSONLibrary
 *** Keywords ***
 
 validar status code 
-    [Arguments]     ${status_code}  
+    [Arguments]     ${resposta}    ${status_code}  
     Should Be True    ${resposta.status_code} == ${status_code}
 
 importar json estatico
     [Arguments]    ${nome_arquivo}
-    ${arquivo}    Get File    ${EXECDIR}/test_api/${nome_arquivo}
+    ${arquivo}    Get File    ${EXECDIR}/test_api/static/${nome_arquivo}
     ${dados}      Evaluate    json.loads('''${arquivo}''')    modules=json
     RETURN         ${dados}
 
