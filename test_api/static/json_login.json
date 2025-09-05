@@ -1,0 +1,16 @@
+{
+    "user_valido":{
+        "email":"eve.holt@reqres.in",
+        "password":"senha"
+    },
+    "user_invalido":{
+        "email":"test@mail.com",
+        "password":"senha123"
+    }
+    ,
+    "user_sem_senha":{
+        "email":"eve.holt@reqres.in",
+        "password":""
+       
+    }
+}

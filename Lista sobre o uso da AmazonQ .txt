@@ -1,0 +1,9 @@
+Uso da ferramenta Amazon Q
+
+Pontos efetivos:
+- Auxílio na criação e organização de pastas e documentos dentro do diretório.
+- Auxilia na compreensão dos erros mostrados pela IDE. 
+
+
+Pontos não efetivos:
+- Pode acabar criando códigos confusos por misturar português e inglês, mas é algo que pode ser consertado apenas tendo atenção ao código.
