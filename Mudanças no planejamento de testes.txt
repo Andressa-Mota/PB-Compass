@@ -1,0 +1,12 @@
+
+Resumo das Mudanças e Justificativas
+
+
+| Alteração                                                     | Justificativa                                        			|
+| ------------------------------------------------------------- | ---------------------------------------------------- 			|
+| Padronização dos nomes dos testes                             | Facilita leitura, manutenção e automação, como pedido no feedback     |
+| Inclusão de evidências automáticas (prints e logs)            | Atende feedback de tornar material mais profissional 			|
+| Aumento da cobertura para 100% (carrinhos e fluxos de compra) | Garante testes para todos os endpoints               			|
+| Priorização revisada com base em impacto/risco                | Otimiza execução em ambientes de CI                  			|
+| Automação total dos cenários críticos                         | Reduz esforço manual e acelera feedback de qualidade 			|
+| Integração com CI/CD sugerida                                 | Permite detecção rápida de regressões                			|
