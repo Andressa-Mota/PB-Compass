@@ -1,0 +1,29 @@
+{
+  "usuario_valido": {
+    "nome": "Andressa Mota",
+    "email": "usuario_valido@teste.com",
+    "password": "Senha123",
+    "administrador": "true"
+  },
+
+  "usuario_duplicado": {
+    "nome": "Usuario Duplicado",
+    "email": "usuario_duplicado@teste.com",
+    "password": "Senha123",
+    "administrador": "false"
+  },
+
+  "usuario_gmail": {
+    "nome": "Usuario Gmail",
+    "email": "usuario@gmail.com",
+    "password": "Senha123",
+    "administrador": "false"
+  },
+
+  "usuario_hotmail": {
+    "nome": "Usuario Hotmail",
+    "email": "usuario@hotmail.com",
+    "password": "Senha123",
+    "administrador": "false"
+  }
+}
