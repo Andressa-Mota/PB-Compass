@@ -1,121 +1,216 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-09-09T17:41:23.081812" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-09-10T21:12:10.727826" rpa="false" schemaversion="5">
 <suite id="s1" name="Test Serverest" source="c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\Tests\test_serverest.robot">
-<test id="s1-t1" name="CT001: Cadastrar novo usuário com sucesso" line="7">
-<kw name="Cadastrar usuario valido" owner="test_serverest">
-<kw name="importar json estatico" owner="commom">
-<kw name="Get File" owner="OperatingSystem">
-<msg time="2025-09-09T17:41:25.578292" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\Andressa\Documents\PB-Compass\static\json_usuarios.json"&gt;C:\Users\Andressa\Documents\PB-Compass\static\json_usuarios.json&lt;/a&gt;'.</msg>
-<msg time="2025-09-09T17:41:25.586229" level="FAIL">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Andressa\\Documents\\PB-Compass\\static\\json_usuarios.json'</msg>
-<var>${arquivo}</var>
-<arg>${EXECDIR}/static/${nome_arquivo}</arg>
-<doc>Returns the contents of a specified file.</doc>
-<status status="FAIL" start="2025-09-09T17:41:25.574746" elapsed="0.023622">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Andressa\\Documents\\PB-Compass\\static\\json_usuarios.json'</status>
+<kw name="Setup da Suíte" owner="test_serverest" type="SETUP">
+<kw name="Criar Sessão Base" owner="test_serverest">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-09-10T21:12:11.568269" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-09-10T21:12:11.567556" elapsed="0.009994"/>
 </kw>
-<kw name="Evaluate" owner="BuiltIn">
-<var>${dados}</var>
-<arg>json.loads('''${arquivo}''')</arg>
-<arg>modules=json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.599114" elapsed="0.000417"/>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-09-10T21:12:11.579193" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>serverest</arg>
+<arg>https://serverest.dev</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-09-10T21:12:11.578392" elapsed="0.002411"/>
+</kw>
+<status status="PASS" start="2025-09-10T21:12:11.565988" elapsed="0.016356"/>
+</kw>
+<kw name="Cadastrar usuario para login" owner="test_serverest">
+<kw name="importar json estatico" owner="common">
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-09-10T21:12:11.587915" level="INFO">${json} = {'user_valido': {'email': 'fulano@qa.com', 'password': 'teste'}, 'user_invalido': {'email': 'naoexiste@qa.com', 'password': 'teste'}, 'user_senha_errada': {'email': 'fulano@qa.com', 'password': 'senha...</msg>
+<var>${json}</var>
+<arg>c:\\Users\\Andressa\\Documents\\PB-Compass\\Test_api_serverest\\keywords/../static/${nome_arquivo}</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-09-10T21:12:11.585458" elapsed="0.004052"/>
 </kw>
 <return>
-<value>${dados}</value>
-<status status="NOT RUN" start="2025-09-09T17:41:25.599977" elapsed="0.000325"/>
+<value>${json}</value>
+<status status="PASS" start="2025-09-10T21:12:11.590383" elapsed="0.001157"/>
 </return>
+<msg time="2025-09-10T21:12:11.593465" level="INFO">${json} = {'user_valido': {'email': 'fulano@qa.com', 'password': 'teste'}, 'user_invalido': {'email': 'naoexiste@qa.com', 'password': 'teste'}, 'user_senha_errada': {'email': 'fulano@qa.com', 'password': 'senha...</msg>
+<var>${json}</var>
+<arg>json_login.json</arg>
+<status status="PASS" start="2025-09-10T21:12:11.584200" elapsed="0.010245"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-09-10T21:12:11.595950" level="INFO">${body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<var>${body}</var>
+<arg>${json}</arg>
+<arg>user_valido</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-09-10T21:12:11.595041" elapsed="0.001305"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-09-10T21:12:12.260947" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '47'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg time="2025-09-10T21:12:12.261828" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': 'bc7c5bd3843f4009784356bc54d389a6;o=1', 'date': 'Thu, 11 Sep 2025 00:12:12 GMT', 'server': 'Google Frontend', 'Content-Length': '92'} 
+ body={
+    "nome": "nome é obrigatório",
+    "administrador": "administrador é obrigatório"
+} 
+ </msg>
+<msg time="2025-09-10T21:12:12.262384" level="INFO">C:\Users\Andressa\AppData\Roaming\Python\Python313\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-09-10T21:12:12.279367" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<var>${resp}</var>
+<arg>serverest</arg>
+<arg>/usuarios</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-09-10T21:12:11.597304" elapsed="0.682529"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-10T21:12:12.283006" level="INFO">Usuário de login garantido. Status: 400</msg>
+<arg>Usuário de login garantido. Status: ${resp.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-10T21:12:12.281058" elapsed="0.002528"/>
+</kw>
+<status status="PASS" start="2025-09-10T21:12:11.583106" elapsed="0.700966"/>
+</kw>
+<status status="PASS" start="2025-09-10T21:12:11.564691" elapsed="0.719728"/>
+</kw>
+<test id="s1-t1" name="CT005: Atualizar usuário inexistente" line="28">
+<kw name="Atualizar usuario inexistente" owner="test_serverest">
+<kw name="importar json estatico" owner="common">
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-09-10T21:12:12.309106" level="INFO">${json} = {'usuario_valido': {'nome': 'Andressa Mota', 'email': 'usuario_valido01@teste.com', 'password': 'Senha123', 'administrador': 'true'}, 'usuario_duplicado': {'nome': 'Usuario Duplicado', 'email': 'usuar...</msg>
+<var>${json}</var>
+<arg>c:\\Users\\Andressa\\Documents\\PB-Compass\\Test_api_serverest\\keywords/../static/${nome_arquivo}</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-09-10T21:12:12.303926" elapsed="0.005730"/>
+</kw>
+<return>
+<value>${json}</value>
+<status status="PASS" start="2025-09-10T21:12:12.310101" elapsed="0.000339"/>
+</return>
+<msg time="2025-09-10T21:12:12.311142" level="INFO">${json} = {'usuario_valido': {'nome': 'Andressa Mota', 'email': 'usuario_valido01@teste.com', 'password': 'Senha123', 'administrador': 'true'}, 'usuario_duplicado': {'nome': 'Usuario Duplicado', 'email': 'usuar...</msg>
 <var>${json}</var>
 <arg>json_usuarios.json</arg>
-<status status="FAIL" start="2025-09-09T17:41:25.571886" elapsed="0.029023">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Andressa\\Documents\\PB-Compass\\static\\json_usuarios.json'</status>
+<status status="PASS" start="2025-09-10T21:12:12.302444" elapsed="0.009065"/>
 </kw>
-<kw name="Set Variable" owner="BuiltIn">
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-09-10T21:12:12.312880" level="INFO">${body} = {'nome': 'Andressa Mota', 'email': 'usuario_valido01@teste.com', 'password': 'Senha123', 'administrador': 'true'}</msg>
 <var>${body}</var>
-<arg>${json["usuario_valido"]}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.601638" elapsed="0.000388"/>
+<arg>${json}</arg>
+<arg>usuario_valido</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-09-10T21:12:12.312085" elapsed="0.002264"/>
 </kw>
 <kw name="Generate Random String" owner="String">
+<msg time="2025-09-10T21:12:12.316694" level="INFO">${email_rand} = crglisil</msg>
 <var>${email_rand}</var>
-<arg>6</arg>
+<arg>8</arg>
 <arg>[LOWER]</arg>
 <doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.602630" elapsed="0.000439"/>
+<status status="PASS" start="2025-09-10T21:12:12.315632" elapsed="0.001419"/>
 </kw>
 <kw name="Set To Dictionary" owner="Collections">
 <arg>${body}</arg>
 <arg>email</arg>
-<arg>${email_rand}@teste.com</arg>
+<arg>${email_rand}@robot.com</arg>
 <doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.603653" elapsed="0.000430"/>
+<status status="PASS" start="2025-09-10T21:12:12.317659" elapsed="0.000820"/>
 </kw>
-<kw name="Criar sessão na ServeRest" owner="test_serverest">
-<status status="NOT RUN" start="2025-09-09T17:41:25.604739" elapsed="0.000304"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
+<kw name="PUT On Session" owner="RequestsLibrary">
+<msg time="2025-09-10T21:12:12.561126" level="INFO">PUT Request : url=https://serverest.dev/usuarios/64646 
+ path_url=/usuarios/64646 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '105'} 
+ body=b'{"nome": "Andressa Mota", "email": "crglisil@robot.com", "password": "Senha123", "administrador": "true"}' 
+ </msg>
+<msg time="2025-09-10T21:12:12.562330" level="INFO">PUT Response : url=https://serverest.dev/usuarios/64646 
+ status=201, reason=Created 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '495737e95206b464784356bc54d384d3', 'date': 'Thu, 11 Sep 2025 00:12:12 GMT', 'server': 'Google Frontend', 'Content-Length': '82'} 
+ body={
+    "message": "Cadastro realizado com sucesso",
+    "_id": "OYn9t902zo5gEK7H"
+} 
+ </msg>
+<msg time="2025-09-10T21:12:12.562810" level="INFO">C:\Users\Andressa\AppData\Roaming\Python\Python313\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-09-10T21:12:12.575866" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
 <var>${resposta}</var>
 <arg>serverest</arg>
-<arg>/usuarios</arg>
+<arg>/usuarios/64646</arg>
 <arg>json=${body}</arg>
 <arg>expected_status=${status_esperado}</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.605542" elapsed="0.000451"/>
+<doc>Sends a PUT request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-09-10T21:12:12.319075" elapsed="0.257235"/>
 </kw>
-<kw name="Log" owner="BuiltIn">
-<arg>${resposta.json()}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.606641" elapsed="0.000396"/>
-</kw>
-<kw name="Set Test Variable" owner="BuiltIn">
-<arg>${resp_api}</arg>
-<arg>${resposta.json()}</arg>
-<doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.607688" elapsed="0.000560"/>
-</kw>
-<kw name="Set Test Variable" owner="BuiltIn">
-<arg>${id_user}</arg>
-<arg>${resposta.json()["_id"]}</arg>
-<doc>Makes a variable available everywhere within the scope of the current test.</doc>
-<status status="NOT RUN" start="2025-09-09T17:41:25.608833" elapsed="0.000334"/>
-</kw>
+<return>
+<value>${resposta}</value>
+<status status="PASS" start="2025-09-10T21:12:12.576775" elapsed="0.000254"/>
+</return>
+<msg time="2025-09-10T21:12:12.577570" level="INFO">${resp} = &lt;Response [201]&gt;</msg>
 <var>${resp}</var>
 <arg>201</arg>
-<status status="FAIL" start="2025-09-09T17:41:25.568767" elapsed="0.044298">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Andressa\\Documents\\PB-Compass\\static\\json_usuarios.json'</status>
+<status status="PASS" start="2025-09-10T21:12:12.301021" elapsed="0.277682"/>
 </kw>
-<kw name="Conferência de cadastro" owner="commom">
-<arg>${resp}</arg>
-<status status="NOT RUN" start="2025-09-09T17:41:25.617141" elapsed="0.000387"/>
+<kw name="Conferência de erro" owner="common">
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${response}</arg>
+<arg>message</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2025-09-10T21:12:12.614972" elapsed="0.001139"/>
 </kw>
-<tag>POST</tag>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${response['message']}</arg>
+<arg>${mensagem_esperada}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2025-09-10T21:12:12.616884" elapsed="0.001631"/>
+</kw>
+<arg>${resp.json()}</arg>
+<arg>Cadastro realizado com sucesso</arg>
+<status status="PASS" start="2025-09-10T21:12:12.610790" elapsed="0.008094"/>
+</kw>
+<tag>PUT</tag>
 <tag>USUARIOS</tag>
-<status status="FAIL" start="2025-09-09T17:41:25.565368" elapsed="0.054612">FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Andressa\\Documents\\PB-Compass\\static\\json_usuarios.json'</status>
+<status status="PASS" start="2025-09-10T21:12:12.284826" elapsed="0.336229"/>
 </test>
-<status status="FAIL" start="2025-09-09T17:41:23.093134" elapsed="2.542796"/>
+<status status="PASS" start="2025-09-10T21:12:10.738286" elapsed="1.899892"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="1" skip="0">POST</stat>
-<stat pass="0" fail="1" skip="0">USUARIOS</stat>
+<stat pass="1" fail="0" skip="0">PUT</stat>
+<stat pass="1" fail="0" skip="0">USUARIOS</stat>
 </tag>
 <suite>
-<stat name="Test Serverest" id="s1" pass="0" fail="1" skip="0">Test Serverest</stat>
+<stat name="Test Serverest" id="s1" pass="1" fail="0" skip="0">Test Serverest</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2025-09-09T17:41:25.412722" level="ERROR">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 7: Importing library 'commom.robot' failed: ModuleNotFoundError: No module named 'commom'
-Traceback (most recent call last):
-  None
-PYTHONPATH:
-  c:\Users\Andressa\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_debug_adapter
-  C:\Users\Andressa\Documents\PB-Compass
-  c:\Users\Andressa\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src
-  c:\Users\Andressa\.vscode\extensions\robocorp.robotframework-lsp-1.13.0\src\robotframework_ls\vendored
-  C:\Python313\python313.zip
-  C:\Python313\DLLs
-  C:\Python313\Lib
-  C:\Python313
-  C:\Users\Andressa\AppData\Roaming\Python\Python313\site-packages
-  C:\Python313\Lib\site-packages</msg>
+<msg time="2025-09-10T21:12:10.884642" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 21: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.886370" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 37: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.887851" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 45: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.889169" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 52: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.890474" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 62: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.893067" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 67: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.894382" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 72: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.896866" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 80: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.899039" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 89: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.900447" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 97: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.902531" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 103: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.904329" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 110: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.906124" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 123: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.912078" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 131: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.919793" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 137: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:10.928074" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 143: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-10T21:12:11.532539" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\common.robot' on line 11: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
 </errors>
 </robot>

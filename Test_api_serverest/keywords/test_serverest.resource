@@ -1,201 +1,143 @@
 *** Settings ***
-Library    RequestsLibrary
-Library    Collections
-Library    JSONLibrary
-Library    DateTime
-Library    String
-Library    commom.robot
+Library           RequestsLibrary
+Library           Collections
+Library           JSONLibrary
+Library           String
+Resource          common.robot
 
 *** Keywords ***
+Setup da Suíte
+    Criar Sessão Base
+    # Garante que o usuário para login/autenticação sempre exista
+    Cadastrar usuario para login
 
-Criar sessão na ServeRest
-    ${headers}  Create Dictionary  
-    ...  accept=application/json  
-    ...  Content-Type=application/json
+Criar Sessão Base
+    ${headers}=    Create Dictionary    Content-Type=application/json
     Create Session    serverest    https://serverest.dev    headers=${headers}
 
+Obter Token de Autenticação
+    ${resp}=    Login com credenciais    user_valido    200
+    ${token}=   Set Variable    ${resp.json()['authorization']}
+    [Return]    ${token}
+
+# --- Keywords de Usuários ---
+Cadastrar usuario para login
+    ${json}=      importar json estatico    json_login.json
+    ${body}=      Get From Dictionary    ${json}    user_valido
+    ${resp}=      POST On Session    serverest    /usuarios    json=${body}    expected_status=any
+    Log    Usuário de login garantido. Status: ${resp.status_code}
 
 Cadastrar usuario valido
-    [Arguments]    ${status_esperado}=201
-    ${json}       importar json estatico    json_usuarios.json
-    ${body}       Set Variable    ${json["usuario_valido"]}
-    ${email_rand}    Generate Random String    6    [LOWER]
-    Set To Dictionary    ${body}    email    ${email_rand}@teste.com
-    Criar sessão na ServeRest
-    ${resposta}   POST On Session    serverest    /usuarios    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-    Set Test Variable    ${resp_api}    ${resposta.json()}
-    Set Test Variable    ${id_user}     ${resposta.json()["_id"]}
-
+    [Arguments]    ${status_esperado}
+    ${json}=       importar json estatico    json_usuarios.json
+    ${body}=       Get From Dictionary    ${json}    usuario_valido
+    ${email_rand}=    Generate Random String    8    [LOWER]
+    Set To Dictionary    ${body}    email    ${email_rand}@robot.com
+    ${resposta}=     POST On Session    serverest    /usuarios    json=${body}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Cadastrar usuario duplicado
-    [Arguments]    ${status_esperado}=400
-    ${json}       importar json estatico    json_usuarios.json
-    ${body}       Set Variable    ${json["usuario_duplicado"]}
-    Criar sessão na ServeRest
-    POST On Session    serverest    /usuarios    json=${body}    expected_status=201
-    ${resposta}   POST On Session    serverest    /usuarios    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-    Set Test Variable    ${resp_api}    ${resposta.json()}
-
+    [Arguments]    ${status_esperado}
+    ${json}=      importar json estatico    json_usuarios.json
+    ${body}=      Get From Dictionary    ${json}    usuario_duplicado
+    POST On Session    serverest    /usuarios    json=${body}    expected_status=any
+    ${resposta}=  POST On Session    serverest    /usuarios    json=${body}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Cadastrar usuario provedor bloqueado
-    [Arguments]    ${provedor}    ${status_esperado}=400
-    ${json}       importar json estatico    json_usuarios.json
-    ${body}       Set Variable    ${json["usuario_valido"]}  # Inicialização
-    Run Keyword If    '${provedor}'=='gmail'    Set Variable    ${body}    ${json["usuario_gmail"]}
-    ...    ELSE IF    '${provedor}'=='hotmail'    Set Variable    ${body}    ${json["usuario_hotmail"]}
-    Criar sessão na ServeRest
-    ${resposta}   POST On Session    serverest    /usuarios    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-    Set Test Variable    ${resp_api}    ${resposta.json()}
-
+    [Arguments]    ${provedor}    ${status_esperado}
+    ${json}=      importar json estatico    json_usuarios.json
+    ${body}=      Get From Dictionary    ${json}    usuario_${provedor}
+    ${resposta}=  POST On Session    serverest    /usuarios    json=${body}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Atualizar usuario inexistente
-    [Arguments]    ${status_esperado}=201
-    ${json}       importar json estatico    json_usuarios.json
-    ${body}       Set Variable    ${json["usuario_valido"]}
-    Criar sessão na ServeRest
-    ${resposta}   PUT On Session    serverest    /usuarios/123456789    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
 
+    [Arguments]    ${status_esperado}
+    ${json}=      importar json estatico    json_usuarios.json
+    ${body}=      Get From Dictionary    ${json}    usuario_valido
+    ${email_rand}=    Generate Random String    8    [LOWER]
+    Set To Dictionary    ${body}    email    ${email_rand}@robot.com
+    ${resposta}=  PUT On Session    serverest    /usuarios/64646    json=${body}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Deletar usuario inexistente
-    [Arguments]    ${status_esperado}=404
-    Criar sessão na ServeRest
-    ${resposta}   DELETE On Session    serverest    /usuarios/naoExiste    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
+    [Arguments]    ${status_esperado}
+    ${resposta}=  DELETE On Session    serverest    /usuarios/IDInexistente    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Listar usuarios
-    [Arguments]    ${status_esperado}=200
-    Criar sessão na ServeRest
-    ${resposta}   GET On Session    serverest    /usuarios    expected_status=${status_esperado}
-    Log    ${resposta.json()}
+    [Arguments]    ${status_esperado}
+    ${resposta}=  GET On Session    serverest    /usuarios    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
+# --- Keywords de Login ---
+Login com credenciais
+    [Arguments]    ${tipo_usuario}    ${status_esperado}
+    ${json}=      importar json estatico    json_login.json
+    ${body}=      Get From Dictionary    ${json}    ${tipo_usuario}
+    ${resposta}=  POST On Session    serverest    /login    json=${body}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
-Login usuario valido
-    [Arguments]    ${status_esperado}=200
-    ${json}       importar json estatico    json_login.json
-    ${body}       Set Variable    ${json["user_valido"]}
-    Criar sessão na ServeRest
-    ${resposta}   POST On Session    serverest    /login    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-    Set Test Variable    ${token}    ${resposta.json()["authorization"]}
-
-
-Login usuario inexistente
-    [Arguments]    ${status_esperado}=401
-    ${json}       importar json estatico    json_login.json
-    ${body}       Set Variable    ${json["user_invalido"]}
-    Criar sessão na ServeRest
-    ${resposta}   POST On Session    serverest    /login    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
-
-Login senha incorreta
-    [Arguments]    ${status_esperado}=401
-    ${json}       importar json estatico    json_login.json
-    ${body}       Set Variable    ${json["user_senha_errada"]}
-    Criar sessão na ServeRest
-    ${resposta}   POST On Session    serverest    /login    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
-
-Login sem senha
-    [Arguments]    ${status_esperado}=400
-    ${json}       importar json estatico    json_login.json
-    ${body}       Set Variable    ${json["user_sem_senha"]}
-    Criar sessão na ServeRest
-    ${resposta}   POST On Session    serverest    /login    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
-
+# --- Keywords de Produtos ---
 Cadastrar produto valido
-    [Arguments]    ${status_esperado}=201
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${random}     Generate Random String    6    [LOWER]
-    ${body}    Create Dictionary    nome=Produto ${random}    preco=100    descricao=Item Teste    quantidade=5
-    ${resposta}   POST On Session    serverest    /produtos    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-    Set Test Variable    ${id_produto}    ${resposta.json()["_id"]}
-
+    [Arguments]    ${token}    ${status_esperado}
+    ${headers}=      Create Dictionary    Authorization=${token}
+    ${nome_prod}=    Generate Random String    10    Produto [LOWER]
+    ${body}=         Create Dictionary    nome=${nome_prod}    preco=500    descricao=Mouse Gamer    quantidade=100
+    ${resposta}=     POST On Session    serverest    /produtos    json=${body}    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Cadastrar produto duplicado
-    [Arguments]    ${status_esperado}=400
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${body}    Create Dictionary    nome=Produto Duplicado    preco=100    descricao=Item Teste    quantidade=5
-    POST On Session    serverest    /produtos    json=${body}    expected_status=201
-    ${resposta}   POST On Session    serverest    /produtos    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
+    [Arguments]    ${token}    ${status_esperado}
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${body}=       Create Dictionary    nome=Produto Duplicado Teste    preco=100    descricao=Item Teste    quantidade=5
+    POST On Session    serverest    /produtos    json=${body}    headers=${headers}    expected_status=any
+    ${resposta}=   POST On Session    serverest    /produtos    json=${body}    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Cadastrar produto sem autenticação
-    [Arguments]    ${status_esperado}=401
-    Criar sessão na ServeRest
-    ${body}    Create Dictionary    nome=Produto Sem Token    preco=200    descricao=Teste    quantidade=3
-    ${resposta}   POST On Session    serverest    /produtos    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
+    [Arguments]    ${status_esperado}
+    ${body}=      Create Dictionary    nome=Produto Sem Token    preco=200    descricao=Teste    quantidade=3
+    ${resposta}=  POST On Session    serverest    /produtos    json=${body}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Atualizar produto inexistente
-    [Arguments]    ${status_esperado}=201
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${body}    Create Dictionary    nome=Produto Novo    preco=150    descricao=Update Teste    quantidade=10
-    ${resposta}   PUT On Session    serverest    /produtos/naoExiste    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
+    [Arguments]    ${token}    ${status_esperado}
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${body}=       Create Dictionary    nome=Produto Novo    preco=150    descricao=Update Teste    quantidade=10
+    ${resposta}=   PUT On Session    serverest    /produtos/IDNaoExiste    json=${body}    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Excluir produto em carrinho
-    [Arguments]    ${status_esperado}=400
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${body}    Create Dictionary    nome=Produto Carrinho    preco=50    descricao=Item    quantidade=1
-    ${resposta}   POST On Session    serverest    /produtos    json=${body}    expected_status=201
-    ${id_produto}    Set Variable    ${resposta.json()["_id"]}
-    # Forçando o vínculo com carrinho (simulado)
-    ${resposta_del}    DELETE On Session    serverest    /produtos/${id_produto}    expected_status=${status_esperado}
-    Log    ${resposta_del.json()}
+    [Arguments]    ${token}    ${status_esperado}
+    ${headers}=           Create Dictionary    Authorization=${token}
+    # 1. Cadastrar um produto
+    ${resp_produto}=      Cadastrar produto valido    ${token}    201
+    ${id_produto}=        Set Variable    ${resp_produto.json()['_id']}
+    # 2. Criar um carrinho com esse produto
+    ${body_carrinho}=     Create Dictionary    produtos=[{"idProduto": "${id_produto}", "quantidade": 1}]
+    POST On Session       serverest    /carrinhos    json=${body_carrinho}    headers=${headers}    expected_status=201
+    # 3. Tentar deletar o produto
+    ${resposta_delete}=   DELETE On Session    serverest    /produtos/${id_produto}    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta_delete}
 
-
-Listar produtos
-    [Arguments]    ${status_esperado}=200
-    Criar sessão na ServeRest
-    ${resposta}   GET On Session    serverest    /produtos    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
-
+# --- Keywords de Carrinhos ---
 Criar carrinho
-    [Arguments]    ${status_esperado}=201
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${body}    Create Dictionary    produtos=[{"idProduto":"${id_produto}","quantidade":1}]
-    ${resposta}   POST On Session    serverest    /carrinhos    json=${body}    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-    Set Test Variable    ${id_carrinho}    ${resposta.json()["_id"]}
-
+    [Arguments]    ${token}    ${id_produto}    ${status_esperado}
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${body}=       Create Dictionary    produtos=[{"idProduto": "${id_produto}", "quantidade": 2}]
+    ${resposta}=   POST On Session    serverest    /carrinhos    json=${body}    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Cancelar carrinho
-    [Arguments]    ${status_esperado}=200
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${resposta}   DELETE On Session    serverest    /carrinhos/cancelar-compra    expected_status=${status_esperado}
-    Log    ${resposta.json()}
-
+    [Arguments]    ${token}    ${status_esperado}
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${resposta}=   DELETE On Session    serverest    /carrinhos/cancelar-compra    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta}
 
 Concluir carrinho
-    [Arguments]    ${status_esperado}=200
-    Login usuario valido
-    ${headers}    Create Dictionary    accept=application/json    Content-Type=application/json    authorization=${token}
-    Create Session    serverest    https://serverest.dev    headers=${headers}
-    ${resposta}   DELETE On Session    serverest    /carrinhos/concluir-compra    expected_status=${status_esperado}
-    Log    ${resposta.json()}
+    [Arguments]    ${token}    ${status_esperado}
+    ${headers}=    Create Dictionary    Authorization=${token}
+    ${resposta}=   DELETE On Session    serverest    /carrinhos/concluir-compra    headers=${headers}    expected_status=${status_esperado}
+    [Return]    ${resposta}
