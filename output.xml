@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-09-11T16:31:17.268895" rpa="false" schemaversion="5">
+<suite id="s1" name="Test Serverest" source="c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\Tests\test_serverest.robot">
+<kw name="Setup da Suíte" owner="test_serverest" type="SETUP">
+<kw name="Criar Sessão Base" owner="test_serverest">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-09-11T16:31:21.337834" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-09-11T16:31:21.336280" elapsed="0.018629"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-09-11T16:31:21.356973" level="INFO">Creating Session using : alias=serverest, url=https://serverest.dev, headers={'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>serverest</arg>
+<arg>https://serverest.dev</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-09-11T16:31:21.355850" elapsed="0.006907"/>
+</kw>
+<status status="PASS" start="2025-09-11T16:31:21.332987" elapsed="0.030324"/>
+</kw>
+<kw name="Cadastrar usuario para login" owner="test_serverest">
+<kw name="importar json estatico" owner="common">
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-09-11T16:31:21.402824" level="INFO">${json} = {'user_valido': {'email': 'fulano@qa.com', 'password': 'teste'}, 'user_invalido': {'email': 'naoexiste@qa.com', 'password': 'teste'}, 'user_senha_errada': {'email': 'fulano@qa.com', 'password': 'senha...</msg>
+<var>${json}</var>
+<arg>c:\\Users\\Andressa\\Documents\\PB-Compass\\Test_api_serverest\\keywords/../static/${nome_arquivo}</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-09-11T16:31:21.371349" elapsed="0.078656"/>
+</kw>
+<return>
+<value>${json}</value>
+<status status="PASS" start="2025-09-11T16:31:21.451879" elapsed="0.000493"/>
+</return>
+<msg time="2025-09-11T16:31:21.453157" level="INFO">${json} = {'user_valido': {'email': 'fulano@qa.com', 'password': 'teste'}, 'user_invalido': {'email': 'naoexiste@qa.com', 'password': 'teste'}, 'user_senha_errada': {'email': 'fulano@qa.com', 'password': 'senha...</msg>
+<var>${json}</var>
+<arg>json_login.json</arg>
+<status status="PASS" start="2025-09-11T16:31:21.368098" elapsed="0.085517"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2025-09-11T16:31:21.455793" level="INFO">${body} = {'email': 'fulano@qa.com', 'password': 'teste'}</msg>
+<var>${body}</var>
+<arg>${json}</arg>
+<arg>user_valido</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2025-09-11T16:31:21.454207" elapsed="0.002040"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-09-11T16:31:22.313717" level="INFO">POST Request : url=https://serverest.dev/usuarios 
+ path_url=/usuarios 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '47'} 
+ body=b'{"email": "fulano@qa.com", "password": "teste"}' 
+ </msg>
+<msg time="2025-09-11T16:31:22.314493" level="INFO">POST Response : url=https://serverest.dev/usuarios 
+ status=400, reason=Bad Request 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '3516e3996152c7333f7e3bd83221a25f;o=1', 'date': 'Thu, 11 Sep 2025 19:31:22 GMT', 'server': 'Google Frontend', 'Content-Length': '92'} 
+ body={
+    "nome": "nome é obrigatório",
+    "administrador": "administrador é obrigatório"
+} 
+ </msg>
+<msg time="2025-09-11T16:31:22.315162" level="INFO">C:\Users\Andressa\AppData\Roaming\Python\Python313\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-09-11T16:31:22.319736" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<var>${resp}</var>
+<arg>serverest</arg>
+<arg>/usuarios</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-09-11T16:31:21.456905" elapsed="0.863275"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-09-11T16:31:22.323166" level="INFO">Usuário de login garantido. Status: 400</msg>
+<arg>Usuário de login garantido. Status: ${resp.status_code}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-09-11T16:31:22.320786" elapsed="0.002870"/>
+</kw>
+<status status="PASS" start="2025-09-11T16:31:21.365963" elapsed="0.958225"/>
+</kw>
+<status status="PASS" start="2025-09-11T16:31:21.331304" elapsed="0.993259"/>
+</kw>
+<test id="s1-t1" name="CT016: Listar produtos" line="94">
+<kw name="Listar produtos" owner="test_serverest">
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-09-11T16:31:22.649096" level="INFO">GET Request : url=https://serverest.dev/produtos 
+ path_url=/produtos 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg time="2025-09-11T16:31:22.649648" level="INFO">GET Response : url=https://serverest.dev/produtos 
+ status=200, reason=OK 
+ headers={'access-control-allow-origin': '*', 'x-dns-prefetch-control': 'off', 'x-frame-options': 'SAMEORIGIN', 'strict-transport-security': 'max-age=15552000; includeSubDomains', 'x-download-options': 'noopen', 'x-content-type-options': 'nosniff', 'x-xss-protection': '1; mode=block', 'content-type': 'application/json; charset=utf-8', 'x-cloud-trace-context': '91da9bde22200e683f7e3bd83221a73c', 'date': 'Thu, 11 Sep 2025 19:31:22 GMT', 'server': 'Google Frontend', 'Content-Length': '24569'} 
+ body={
+    "quantidade": 115,
+    "produtos": [
+        {
+            "nome": "Awesome Fresh Fish",
+            "preco": 500,
+            "descricao": "The Football Is Good For Training And Recreational Purposes",
+            "quantidade": 10,
+            "_id": "0dSFMQxNKFXRWaYl"
+        },
+        {
+            "nome": "Produto Teste 36",
+            "preco": 15,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "11Z8hZPSO6N4O4rQ"
+        },
+        {
+            "nome": "TestProduct1757594120_updated",
+            "preco": 20,
+            "descricao": "updated desc",
+            "quantidade": 200,
+            "_id": "12SRKFoSOz9o5F57"
+        },
+        {
+            "nome": "Produto Teste 63",
+            "preco": 3,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "1EYQkWsRd5UOko17"
+        },
+        {
+            "nome": "Curso QA",
+            "preco": 150,
+            "descricao": "Curso",
+            "quantidade": 2000,
+            "_id": "1T3XIW7GStdSdV79"
+        },
+        {
+            "nome": "Produto Teste 707",
+            "preco": 721,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 21,
+            "_id": "1xEsfWcmzdmYnN5E"
+        },
+        {
+            "nome": "Caneca0.06058712428713153",
+            "preco": 10,
+            "descricao": "Caneca Azul",
+            "quantidade": 25,
+            "_id": "2XHpJccC9JH6NpMU"
+        },
+        {
+            "nome": "Produto Teste 709",
+            "preco": 947,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 22,
+            "_id": "2a6MKUBnwgj93zOG"
+        },
+        {
+            "nome": "Produto Teste 528",
+            "preco": 39,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "4tUyIgEXSDRMeZ2Q"
+        },
+        {
+            "nome": "Produto Teste 299",
+            "preco": 577,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 12,
+            "_id": "5aG9BZ1T3gJHZPos"
+        },
+        {
+            "nome": "ProdutoCart",
+            "preco": 15,
+            "descricao": "DescCart",
+            "quantidade": 0,
+            "_id": "6x9wCEICd6dMMXaz"
+        },
+        {
+            "nome": "TestProduct1757591287151867281",
+            "preco": 12345,
+            "descricao": "Desc TestProduct1757591287151867281",
+            "quantidade": 99,
+            "_id": "79FlDLV6Nhbs8Tix"
+        },
+        {
+            "nome": "product_updated",
+            "preco": 20,
+            "descricao": "desc_updated",
+            "quantidade": 10,
+            "_id": "8VGiRZtpN4kQl0Ps"
+        },
+        {
+            "nome": "Produto Teste 23",
+            "preco": 94,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "9JNQMakWjaujoAMa"
+        },
+        {
+            "nome": "Produto Teste",
+            "preco": 100,
+            "descricao": "Descricao teste",
+            "quantidade": 10,
+            "_id": "AsjpxaaBVzBg8xXv"
+        },
+        {
+            "nome": "o nome é obrigatório",
+            "preco": 1200,
+            "descricao": "descricao é obrigatório",
+            "quantidade": 100,
+            "_id": "B8JqZxsZJAHJFuBl"
+        },
+        {
+            "nome": "Logitech MX Vertical",
+            "preco": 470,
+            "descricao": "Mouse",
+            "quantidade": 384,
+            "_id": "BeeJh5lz3k6kSIzA"
+        },
+        {
+            "nome": "Produto QA",
+            "preco": 10,
+            "descricao": "teste",
+            "quantidade": 5,
+            "_id": "Bf5TL9i6aDgBhXiP"
+        },
+        {
+            "nome": "Produto Teste 757",
+            "preco": 454,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 18,
+            "_id": "BfCATu7xIeBCKHEb"
+        },
+        {
+            "nome": "Produto Teste 43",
+            "preco": 13,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "BfciCFwxnNBtgxAJ"
+        },
+        {
+            "nome": "Incredible Gold Keyboard",
+            "preco": 500,
+            "descricao": "New lime Car with ergonomic design for uncomfortable comfort",
+            "quantidade": 0,
+            "_id": "C71eVRCvn02l4Fgu"
+        },
+        {
+            "nome": "UpdatedName",
+            "preco": 200,
+            "descricao": "Updated description",
+            "quantidade": 10,
+            "_id": "CZtkKyXm73cOWC8W"
+        },
+        {
+            "nome": "Produto Teste 40",
+            "preco": 37,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "CdZSzQKGEQjwh0Dj"
+        },
+        {
+            "nome": "Produto Teste 74",
+            "preco": 11,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "ChjWCy7LRJ702q3P"
+        },
+        {
+            "nome": "Modern Cotton Tuna",
+            "preco": 500,
+            "descricao": "Practical Chicken designed with Aluminum for winged performance",
+            "quantidade": 10,
+            "_id": "Ci4Kxdb4slGJqiyq"
+        },
+        {
+            "nome": "Produto Teste 60",
+            "preco": 52,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "DZa0w2KZGPaaj1Ao"
+        },
+        {
+            "nome": "Cypress Product 1757593159394",
+            "preco": 10,
+            "descricao": "Product Description",
+            "quantidade": 10,
+            "imagem": "C:\\fakepath\\image.jpg",
+            "_id": "E7cQ6mZg86XnAnfr"
+        },
+        {
+            "nome": "product_test_001",
+            "preco": 10,
+            "descricao": "Test product",
+            "quantidade": 42,
+            "_id": "GFQpknMuzCtJcZRQ"
+        },
+        {
+            "nome": "Prod1757591358669220075",
+            "preco": 12,
+            "descricao": "desc",
+            "quantidade": 1,
+            "_id": "GVmBALFA21P076vY"
+        },
+        {
+            "nome": "Produto Teste 54",
+            "preco": 34,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "Gffkro7OZOQjqxTX"
+        },
+        {
+            "nome": "Produto Teste 21",
+            "preco": 78,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "GqFjCPrJW3Yz40dQ"
+        },
+        {
+            "nome": "Produto Teste 68",
+            "preco": 80,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "HzZnqZZZIU1x4R3w"
+        },
+        {
+            "nome": "Produto Teste 53",
+            "preco": 58,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "Ik4QPvTVrFC4mYLd"
+        },
+        {
+            "nome": "Generic Granite Soap",
+            "preco": 500,
+            "descricao": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+            "quantidade": 0,
+            "_id": "J3v592vsSyjEj7Pl"
+        },
+        {
+            "nome": "Samsung 60 polegadas",
+            "preco": 5240,
+            "descricao": "TV",
+            "quantidade": 49978,
+            "_id": "K6leHdftCeOJj8BJ"
+        },
+        {
+            "nome": "Produto Teste 595",
+            "preco": 439,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 55,
+            "_id": "LqTo13RBIPUxznx0"
+        },
+        {
+            "nome": "Produto Teste 6",
+            "preco": 4,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "M6TGNo8Ihkrh281q"
+        },
+        {
+            "nome": "Produto Teste 887",
+            "preco": 22,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "MiaXIB15ipPAPbIK"
+        },
+        {
+            "nome": "Bespoke Marble Bike",
+            "preco": 1600,
+            "descricao": "The Brett Shirt is the latest in a series of silent products from Schuster - Nienow",
+            "quantidade": 18,
+            "_id": "MjwAumOhobJbO6kx"
+        },
+        {
+            "nome": "test",
+            "preco": 123,
+            "descricao": "desc",
+            "quantidade": 5,
+            "_id": "My7py5NbpJwkUkpE"
+        },
+        {
+            "nome": "TestProduct1757594105",
+            "preco": 10,
+            "descricao": "desc",
+            "quantidade": 100,
+            "_id": "OCoqkX3T7KjGT8x3"
+        },
+        {
+            "nome": "Produto Teste 222",
+            "preco": 60,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 37,
+            "_id": "PN8NfNNjNNAlZ7i4"
+        },
+        {
+            "nome": "Vela Aromática",
+            "preco": 82,
+            "descricao": "Fragrância suave e refrescante.",
+            "quantidade": 37,
+            "_id": "Q09382fA7QYL3k8E"
+        },
+        {
+            "nome": "ProductTest",
+            "preco": 123,
+            "descricao": "Test description",
+            "quantidade": 10,
+            "_id": "QLfOBrPsxLcTuF8Q"
+        },
+        {
+            "nome": "Produto Teste 65",
+            "preco": 39,
+            "descricao": "Descrição do Produto Teste",
+            "quantidade": 10,
+            "_id": "Qm4ZtLLLF4eRGV2j"
+        },
+        {
+            "nome": "Produto novo",
+            "preco": 199,
+            "descricao": "Produto novo para testes de automação",
+            "quantidade": 100,
+            "imagem": "C:\\fakepath\\gamer.jpg",
+            "_id": "QqVU8cwBkGchhnqS"
+        },
+        {
+            "nome": "product2",
+            "preco": 10,
+            "descricao": "desc",
+            "quantidade": 5,
+            "_i... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2025-09-11T16:31:22.651966" level="INFO">C:\Users\Andressa\AppData\Roaming\Python\Python313\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'serverest.dev'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2025-09-11T16:31:22.659338" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<var>${resposta}</var>
+<arg>serverest</arg>
+<arg>/produtos</arg>
+<arg>expected_status=${status_esperado}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-09-11T16:31:22.327907" elapsed="0.331896"/>
+</kw>
+<return>
+<value>${resposta}</value>
+<status status="PASS" start="2025-09-11T16:31:22.660260" elapsed="0.000396"/>
+</return>
+<msg time="2025-09-11T16:31:22.661724" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
+<var>${resposta}</var>
+<arg>200</arg>
+<status status="PASS" start="2025-09-11T16:31:22.326785" elapsed="0.336051"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resposta.json()}</arg>
+<arg>produtos</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2025-09-11T16:31:22.674101" elapsed="0.004439"/>
+</kw>
+<tag>GET</tag>
+<tag>PRODUTOS</tag>
+<status status="PASS" start="2025-09-11T16:31:22.324992" elapsed="0.368675"/>
+</test>
+<status status="PASS" start="2025-09-11T16:31:17.299667" elapsed="5.399235"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">GET</stat>
+<stat pass="1" fail="0" skip="0">PRODUTOS</stat>
+</tag>
+<suite>
+<stat name="Test Serverest" id="s1" pass="1" fail="0" skip="0">Test Serverest</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-09-11T16:31:17.678542" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 21: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.682781" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 37: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.689581" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 45: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.809265" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 52: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.826306" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 62: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.829216" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 67: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.858253" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 72: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.882344" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 80: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.918032" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 89: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.938131" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 97: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.949978" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 103: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.979498" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 111: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.996243" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 120: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:17.998153" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 126: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:18.016614" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 140: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:18.027778" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 146: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:18.077890" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\test_serverest.resource' on line 152: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+<msg time="2025-09-11T16:31:21.226207" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\Test_api_serverest\keywords\common.robot' on line 11: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
+</errors>
+</robot>

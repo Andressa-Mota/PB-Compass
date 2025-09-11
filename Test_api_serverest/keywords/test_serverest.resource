@@ -119,6 +119,11 @@ Excluir produto em carrinho
     ${resposta_delete}=   DELETE On Session    serverest    /produtos/${id_produto}    headers=${headers}    expected_status=${status_esperado}
     [Return]    ${resposta_delete}
 
+
+Listar produtos
+    [Arguments]    ${status_esperado}
+    ${resposta}=    GET On Session    serverest    /produtos    expected_status=${status_esperado}
+    [Return]    ${resposta}
 Limpar carrinho existente
     [Arguments]    ${token}
     ${headers}=      Create Dictionary    Authorization=${token}
