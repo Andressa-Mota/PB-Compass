@@ -105,28 +105,32 @@ Cadastrar produto sem autenticação
 Atualizar produto inexistente
     [Arguments]    ${token}    ${status_esperado}
     ${headers}=    Create Dictionary    Authorization=${token}
-    ${body}=       Create Dictionary    nome=Produto Novo    preco=150    descricao=Update Teste    quantidade=10
-    ${resposta}=   PUT On Session    serverest    /produtos/IDNaoExiste    json=${body}    headers=${headers}    expected_status=${status_esperado}
+    ${nome_prod}=    Generate Random String    10    Produto [LOWER]
+    ${body}=         Create Dictionary    nome=${nome_prod}   preco=150    descricao=Update Teste    quantidade=10
+    ${resposta}=   PUT On Session    serverest    /produtos/idinexistente000   json=${body}    headers=${headers}    expected_status=${status_esperado}
     [Return]    ${resposta}
 
 Excluir produto em carrinho
     [Arguments]    ${token}    ${status_esperado}
     ${headers}=           Create Dictionary    Authorization=${token}
-    # 1. Cadastrar um produto
     ${resp_produto}=      Cadastrar produto valido    ${token}    201
     ${id_produto}=        Set Variable    ${resp_produto.json()['_id']}
-    # 2. Criar um carrinho com esse produto
-    ${body_carrinho}=     Create Dictionary    produtos=[{"idProduto": "${id_produto}", "quantidade": 1}]
-    POST On Session       serverest    /carrinhos    json=${body_carrinho}    headers=${headers}    expected_status=201
-    # 3. Tentar deletar o produto
+    Criar carrinho    ${token}    ${id_produto}    201
     ${resposta_delete}=   DELETE On Session    serverest    /produtos/${id_produto}    headers=${headers}    expected_status=${status_esperado}
     [Return]    ${resposta_delete}
 
-# --- Keywords de Carrinhos ---
+Limpar carrinho existente
+    [Arguments]    ${token}
+    ${headers}=      Create Dictionary    Authorization=${token}
+    ${response}=     DELETE On Session    serverest    /carrinhos/concluir-compra    headers=${headers}    expected_status=any
+    Log    Tentativa de limpeza de carrinho finalizada com status: ${response.status_code}
+
 Criar carrinho
     [Arguments]    ${token}    ${id_produto}    ${status_esperado}
     ${headers}=    Create Dictionary    Authorization=${token}
-    ${body}=       Create Dictionary    produtos=[{"idProduto": "${id_produto}", "quantidade": 2}]
+    &{produto_dicionario}=    Create Dictionary    idProduto=${id_produto}    quantidade=2
+    @{produtos_lista}=    Create List    ${produto_dicionario}
+    ${body}=       Create Dictionary    produtos=${produtos_lista}
     ${resposta}=   POST On Session    serverest    /carrinhos    json=${body}    headers=${headers}    expected_status=${status_esperado}
     [Return]    ${resposta}
 

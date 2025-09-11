@@ -10,9 +10,5 @@
   "user_senha_errada": {
     "email": "fulano@qa.com",
     "password": "senhaerrada"
-  },
-  "user_sem_senha": {
-    "email": "fulano@qa.com",
-    "password": ""
   }
 }
