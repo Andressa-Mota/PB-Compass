@@ -1,0 +1,32 @@
+{"level":30,"time":"2025-09-17T19:43:35.285Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Listening on 127.0.0.1:64126"}
+(node:10880) DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+{"level":30,"time":"2025-09-17T19:43:35.664Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method newBrowser"}
+{"level":30,"time":"2025-09-17T19:43:36.360Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Adding browser to stack: chromium, version: 140.0.7339.16"}
+{"level":30,"time":"2025-09-17T19:43:36.362Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method newBrowser"}
+{"level":30,"time":"2025-09-17T19:43:36.375Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method newPage"}
+{"level":30,"time":"2025-09-17T19:43:36.362Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Adding 0 contexts to browser"}
+{"level":30,"time":"2025-09-17T19:43:36.376Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"currentBrowser: {\"name\":\"chromium\",\"browser\":{\"_type\":\"Browser\",\"_guid\":\"browser@159192a9ef41608a6a296fbdba96cc21\"},\"headless\":false,\"_contextStack\":[],\"id\":\"browser=d9b3cf4b-91dc-456e-bada-e16de3eb2415\"}"}
+{"level":30,"time":"2025-09-17T19:43:36.442Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Setting default timeout for context context=287b3d23-81fb-49e3-b267-10e63f983fd2 to 10000"}
+{"level":30,"time":"2025-09-17T19:43:36.443Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Changed active context: context=287b3d23-81fb-49e3-b267-10e63f983fd2"}
+{"level":30,"time":"2025-09-17T19:43:37.347Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Video path: undefined"}
+{"level":30,"time":"2025-09-17T19:43:37.347Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Changed active page"}
+{"level":30,"time":"2025-09-17T19:43:38.331Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method newPage"}
+{"level":30,"time":"2025-09-17T19:43:38.393Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.398Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.403Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.407Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.411Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.416Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.422Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.424Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.430Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Changed active context: context=287b3d23-81fb-49e3-b267-10e63f983fd2"}
+{"level":30,"time":"2025-09-17T19:43:38.430Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Changing current active page: page=8a3eeef1-fea4-4a84-8911-2ed1030e1c73"}
+{"level":30,"time":"2025-09-17T19:43:38.430Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Changed active page"}
+{"level":30,"time":"2025-09-17T19:43:38.437Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method closeContext"}
+{"level":30,"time":"2025-09-17T19:43:38.469Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Removed page=1114aa76-b042-407f-a0a5-eb1ccc1c0a53 from context=287b3d23-81fb-49e3-b267-10e63f983fd2 page stack"}
+{"level":30,"time":"2025-09-17T19:43:38.557Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method closeContext"}
+{"level":30,"time":"2025-09-17T19:43:38.577Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.578Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method getBrowserCatalog"}
+{"level":30,"time":"2025-09-17T19:43:38.968Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"Start of node method closeAllBrowsers"}
+{"level":30,"time":"2025-09-17T19:43:39.802Z","pid":10880,"hostname":"DESKTOP-UT13BO3","msg":"End of node method closeAllBrowsers"}
