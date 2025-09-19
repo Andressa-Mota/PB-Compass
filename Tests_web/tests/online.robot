@@ -1,8 +1,8 @@
 *** Settings ***
 Library   Browser
-Resource    ../resources/base.robot
+Resource    ../resources/base.resource
 
 *** Test Cases ***
-Verificar se webapp esta online
+CT01:Verificar se webapp esta online
     start session
     Get Title    equal    Mark85 by QAx
