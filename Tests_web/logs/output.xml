@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-09-17T16:43:32.970004" rpa="false" schemaversion="5">
+<suite id="s1" name="Online" source="C:\Users\Andressa\Documents\PB-Compass\Tests_web\online.robot">
+<test id="s1-t1" name="Verificar se webapp esta online" line="5">
+<kw name="New Browser" owner="Browser">
+<msg time="2025-09-17T16:43:33.431539" level="INFO">{"browser": "chromium", "headless": false, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "C:\\Users\\Andressa\\Documents\\PB-Compass\\Tests_web\\logs\\browser\\traces\\temp\\841c14c6-76dd-4aef-80e1-6235d3fc5bbb"}</msg>
+<msg time="2025-09-17T16:43:33.499681" level="INFO">Starting Browser process C:\Python313\Lib\site-packages\Browser\wrapper\index.js using at 127.0.0.1:64126</msg>
+<msg time="2025-09-17T16:43:36.367140" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":false,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"C:\\Users\\Andressa\\Documents\\PB-Compass\\Tests_web\\logs\\browser\\traces\\temp\\841c14c6-76dd-4aef-80e1-6235d3fc5bbb"}</msg>
+<arg>browser=chromium</arg>
+<arg>headless=false</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Create a new playwright Browser with specified options.</doc>
+<status status="PASS" start="2025-09-17T16:43:33.429743" elapsed="2.937847"/>
+</kw>
+<kw name="New Page" owner="Browser">
+<msg time="2025-09-17T16:43:38.335839" level="INFO">Successfully initialized new page object and opened url: http://localhost:3000</msg>
+<msg time="2025-09-17T16:43:38.335972" level="INFO">No context was open. New context was automatically opened when this page is created.</msg>
+<arg>http://localhost:3000</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Open a new Page.</doc>
+<status status="PASS" start="2025-09-17T16:43:36.368235" elapsed="1.967965"/>
+</kw>
+<kw name="Get Title" owner="Browser">
+<msg time="2025-09-17T16:43:38.385824" level="INFO">Title: 'Mark85 by QAx'</msg>
+<arg>equal</arg>
+<arg>Mark85 by QAx</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns the title of the current page.</doc>
+<status status="PASS" start="2025-09-17T16:43:38.336486" elapsed="0.049496"/>
+</kw>
+<msg time="2025-09-17T16:43:38.420131" level="INFO">Switching context to context=287b3d23-81fb-49e3-b267-10e63f983fd2 in CURRENT</msg>
+<msg time="2025-09-17T16:43:38.437324" level="INFO">Successfully changed active context: context=287b3d23-81fb-49e3-b267-10e63f983fd2</msg>
+<msg time="2025-09-17T16:43:38.560959" level="INFO">Successfully closed Context</msg>
+<status status="PASS" start="2025-09-17T16:43:33.428104" elapsed="4.958142"/>
+</test>
+<status status="PASS" start="2025-09-17T16:43:32.973024" elapsed="5.590572"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Online" id="s1" pass="1" fail="0" skip="0">Online</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
