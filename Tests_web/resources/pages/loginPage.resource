@@ -14,9 +14,3 @@ submeter formulario de login
             #Escolehndo botão pela classe e texto combinados
 
 
-conferencia de login
-    [Arguments]    ${name}
-    ${seletor}    Set Variable   css=header .right small 
-
-    Wait For Elements State     ${seletor}        visible    5
-    Get Text     ${seletor}    equal    Olá, ${name}

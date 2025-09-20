@@ -1,0 +1,65 @@
+{
+
+    "create":{
+        "user":{
+            "name":"tester",
+            "email":"test@mail.com",
+            "password":"senha123"
+        },
+        "task":{
+            "name":"fazer atividade 01",
+            "tags": ["atividades","programação","qa"]
+
+        }
+    },
+    "duplicate":{
+        "user":{
+            "name":"tester02",
+            "email":"test02@mail.com",
+            "password":"senha123"
+        },
+        "task":{
+            "name":"fazer atividade 02",
+            "tags": []
+
+        }
+    },
+    "tags_limit":{
+        "user":{
+            "name":"tester03",
+            "email":"test03@mail.com",
+            "password":"senha123"
+        },
+        "task":{
+            "name":"fazer atividade 03",
+            "tags": ["python","programação","qa","robotframework"]
+
+        }
+    },
+    "done":{
+         "user":{
+            "name":"tester04",
+            "email":"test04@mail.com",
+            "password":"senha123"
+        },
+        "task":{
+            "name":"fazer atividade 04",
+            "tags": ["criar","programação","python"]
+
+        }
+
+    },
+     "delete":{
+         "user":{
+            "name":"tester05",
+            "email":"test05@mail.com",
+            "password":"senha123"
+        },
+        "task":{
+            "name":"fazer atividade 05",
+            "tags": ["tests","librarybrwoser","robot"]
+
+        }
+
+    }
+}

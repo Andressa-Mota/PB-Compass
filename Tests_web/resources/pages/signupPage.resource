@@ -38,8 +38,3 @@ conferencia do teste
      Get Text    ${element}   equal    ${txt_esperado}    
      #sSleep   2    
 
-mensagens de alerta
-    [Arguments]    ${txt_esperado}
-    Wait For Elements State    css=.alert-error >> text=${txt_esperado}    visible    5
-    Wait For Elements State    css=.alert-error >> text=${txt_esperado}    visible    5
-    Wait For Elements State    css=.alert-error >> text=${txt_esperado}    visible    5
