@@ -1,143 +1,266 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-09-04T17:31:17.369955" rpa="false" schemaversion="5">
-<suite id="s1" name="Testing Api" source="c:\Users\Andressa\Documents\PB-Compass\test_api\suport\testing_api.robot">
-<test id="s1-t1" name="Cenario 08: Criar usário de massa estatica" line="46">
-<kw name="Criar sessao na api" owner="testing_api">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-09-04T17:31:17.970570" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json', 'x-api-key': 'reqres-free-v1'}</msg>
-<var>${headers}</var>
-<arg>accept=application/json</arg>
-<arg>Content-Type=application/json</arg>
-<arg>x-api-key=reqres-free-v1</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-09-04T17:31:17.969478" elapsed="0.008966"/>
+<robot generator="Robot 7.3.2 (Python 3.13.7 on win32)" generated="2025-09-20T04:00:47.199862" rpa="false" schemaversion="5">
+<suite id="s1" name="Delete" source="c:\Users\Andressa\Documents\PB-Compass\Tests_web\tests\tasks\delete.robot">
+<test id="s1-t1" name="CT14:apagar tarefa" line="14">
+<kw name="start session" owner="base" type="SETUP">
+<kw name="New Browser" owner="Browser">
+<msg time="2025-09-20T04:00:49.238571" level="INFO">{"browser": "chromium", "headless": false, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "C:\\Users\\Andressa\\Documents\\PB-Compass\\browser\\traces\\temp\\02ed51e1-0cd1-49de-8568-06e36f57c038"}</msg>
+<msg time="2025-09-20T04:00:49.359196" level="INFO">Starting Browser process C:\Python313\Lib\site-packages\Browser\wrapper\index.js using at 127.0.0.1:49324</msg>
+<msg time="2025-09-20T04:00:53.944292" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":false,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"C:\\Users\\Andressa\\Documents\\PB-Compass\\browser\\traces\\temp\\02ed51e1-0cd1-49de-8568-06e36f57c038"}</msg>
+<arg>browser=chromium</arg>
+<arg>headless=false</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Create a new playwright Browser with specified options.</doc>
+<status status="PASS" start="2025-09-20T04:00:49.235478" elapsed="4.711415"/>
 </kw>
-<kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-09-04T17:31:17.980240" level="INFO">Creating Session using : alias=reqres_api, url=https://reqres.in/api, headers={'accept': 'application/json', 'Content-Type': 'application/json', 'x-api-key': 'reqres-free-v1'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<arg>reqres_api</arg>
-<arg>https://reqres.in/api</arg>
-<arg>headers=${headers}</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-09-04T17:31:17.979234" elapsed="0.001946"/>
+<kw name="New Page" owner="Browser">
+<msg time="2025-09-20T04:00:56.621708" level="INFO">Successfully initialized new page object and opened url: http://localhost:3000</msg>
+<msg time="2025-09-20T04:00:56.622494" level="INFO">No context was open. New context was automatically opened when this page is created.</msg>
+<arg>${BASE_URL}</arg>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+<doc>Open a new Page.</doc>
+<status status="PASS" start="2025-09-20T04:00:53.972116" elapsed="2.651207"/>
 </kw>
-<status status="PASS" start="2025-09-04T17:31:17.967678" elapsed="0.013984"/>
+<status status="PASS" start="2025-09-20T04:00:49.231161" elapsed="7.392863"/>
 </kw>
-<kw name="login na api" owner="commom">
-<kw name="importar json estatico" owner="commom">
-<kw name="Get File" owner="OperatingSystem">
-<msg time="2025-09-04T17:31:17.988881" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\Andressa\Documents\PB-Compass\test_api\static\json_login.json"&gt;C:\Users\Andressa\Documents\PB-Compass\test_api\static\json_login.json&lt;/a&gt;'.</msg>
-<msg time="2025-09-04T17:31:17.997817" level="INFO">${arquivo} = {
-    "user_valido":{
-        "email":"eve.holt@reqres.in",
-        "password":"senha"
-    },
-    "user_invalido":{
-        "email":"test@mail.com",
-        "password":"senha123"
-    }
-    ,
-    "user...</msg>
-<var>${arquivo}</var>
-<arg>${EXECDIR}/test_api/static/${nome_arquivo}</arg>
-<doc>Returns the contents of a specified file.</doc>
-<status status="PASS" start="2025-09-04T17:31:17.988038" elapsed="0.010341"/>
-</kw>
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-09-04T17:31:18.001383" level="INFO">${dados} = {'user_valido': {'email': 'eve.holt@reqres.in', 'password': 'senha'}, 'user_invalido': {'email': 'test@mail.com', 'password': 'senha123'}, 'user_sem_senha': {'email': 'eve.holt@reqres.in', 'password':...</msg>
-<var>${dados}</var>
-<arg>json.loads('''${arquivo}''')</arg>
-<arg>modules=json</arg>
-<doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-09-04T17:31:17.999525" elapsed="0.002749"/>
-</kw>
-<return>
-<value>${dados}</value>
-<status status="PASS" start="2025-09-04T17:31:18.002728" elapsed="0.001572"/>
-</return>
-<msg time="2025-09-04T17:31:18.005106" level="INFO">${json} = {'user_valido': {'email': 'eve.holt@reqres.in', 'password': 'senha'}, 'user_invalido': {'email': 'test@mail.com', 'password': 'senha123'}, 'user_sem_senha': {'email': 'eve.holt@reqres.in', 'password':...</msg>
-<var>${json}</var>
-<arg>json_login.json</arg>
-<status status="PASS" start="2025-09-04T17:31:17.986904" elapsed="0.018797"/>
-</kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-09-04T17:31:18.008750" level="INFO">${body} = {'email': 'eve.holt@reqres.in', 'password': 'senha'}</msg>
-<var>${body}</var>
-<arg>${json["${tipo_usuario}"]}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-09-04T17:31:18.006527" elapsed="0.002626"/>
-</kw>
-<kw name="POST On Session" owner="RequestsLibrary">
-<msg time="2025-09-04T17:31:18.770337" level="INFO">POST Request : url=https://reqres.in/api/login 
- path_url=/api/login 
- headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'x-api-key': 'reqres-free-v1', 'Content-Length': '52'} 
- body=b'{"email": "eve.holt@reqres.in", "password": "senha"}' 
- </msg>
-<msg time="2025-09-04T17:31:18.771140" level="INFO">POST Response : url=https://reqres.in/api/login 
- status=200, reason=OK 
- headers={'Date': 'Thu, 04 Sep 2025 20:31:18 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '29', 'Connection': 'keep-alive', 'CF-RAY': '97a03fecefd2f197-GRU', 'Access-Control-Allow-Credentials': 'true', 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization, x-api-key', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', 'Access-Control-Allow-Origin': 'http://localhost:5173', 'Etag': 'W/"1d-lGCrvD6B7Qzk11+2C98+nGhhuec"', 'Nel': '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}', 'Ratelimit-Limit': '100', 'Ratelimit-Policy': '100;w=60', 'Ratelimit-Remaining': '98', 'Ratelimit-Reset': '60', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Report-To': '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=CHSypvKe%2FubnVEqBQIMvN3zAlgmwXGhsZwxrOAq%2BFbk%3D\\u0026sid=c4c9725f-1ab0-44d8-820f-430df2718e11\\u0026ts=1757017878"}],"max_age":3600}', 'Reporting-Endpoints': 'heroku-nel="https://nel.heroku.com/reports?s=CHSypvKe%2FubnVEqBQIMvN3zAlgmwXGhsZwxrOAq%2BFbk%3D&amp;sid=c4c9725f-1ab0-44d8-820f-430df2718e11&amp;ts=1757017878"', 'Vary': 'Origin', 'Via': '1.1 heroku-router', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY', 'X-Request-Id': '93680cbc-0a1f-f491-0b79-6a6bf8e7dbc7', 'X-Xss-Protection': '1; mode=block', 'cf-cache-status': 'DYNAMIC', 'Server': 'cloudflare', 'server-timing': 'cfL4;desc="?proto=TCP&amp;rtt=35195&amp;min_rtt=32107&amp;rtt_var=14246&amp;sent=7&amp;recv=7&amp;lost=0&amp;retrans=0&amp;sent_bytes=2832&amp;recv_bytes=935&amp;delivery_rate=127075&amp;cwnd=238&amp;unsent_bytes=0&amp;cid=78e9fcb35602e222&amp;ts=578&amp;x=0"'} 
- body={"token":"QpwL5tke4Pnpja7X4"} 
- </msg>
-<msg time="2025-09-04T17:31:18.771764" level="INFO">C:\Users\Andressa\AppData\Roaming\Python\Python313\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'reqres.in'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(</msg>
-<msg time="2025-09-04T17:31:18.778429" level="INFO">${resposta} = &lt;Response [200]&gt;</msg>
-<var>${resposta}</var>
-<arg>reqres_api</arg>
-<arg>/login</arg>
-<arg>json=${body}</arg>
-<arg>expected_status=${status_esperado}</arg>
-<doc>Sends a POST request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2025-09-04T17:31:18.009760" elapsed="0.769129"/>
-</kw>
-<kw name="To Json" owner="RequestsLibrary">
-<msg time="2025-09-04T17:31:18.779986" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
-<msg time="2025-09-04T17:31:18.786409" level="INFO">To JSON using : content={"token":"QpwL5tke4Pnpja7X4"} </msg>
-<msg time="2025-09-04T17:31:18.786831" level="INFO">To JSON using : pretty_print=False </msg>
-<msg time="2025-09-04T17:31:18.787401" level="INFO">${resposta_json} = {'token': 'QpwL5tke4Pnpja7X4'}</msg>
-<var>${resposta_json}</var>
-<arg>${resposta.content}</arg>
-<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
-<status status="PASS" start="2025-09-04T17:31:18.779542" elapsed="0.008252"/>
-</kw>
-<return>
-<value>${resposta_json}</value>
-<status status="PASS" start="2025-09-04T17:31:18.788202" elapsed="0.000333"/>
-</return>
-<msg time="2025-09-04T17:31:18.789879" level="INFO">${resposta} = {'token': 'QpwL5tke4Pnpja7X4'}</msg>
-<var>${resposta}</var>
-<arg>user_valido</arg>
-<arg>200</arg>
-<status status="PASS" start="2025-09-04T17:31:17.985613" elapsed="0.805958"/>
-</kw>
-<kw name="Dictionary Should Contain Key" owner="Collections">
-<arg>${resposta}</arg>
-<arg>token</arg>
-<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
-<status status="PASS" start="2025-09-04T17:31:18.798478" elapsed="0.000862"/>
+<kw name="receber fixtures" owner="base">
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-09-20T04:00:56.641678" level="INFO">${data} = {'create': {'user': {'name': 'tester', 'email': 'test@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 01', 'tags': ['atividades', 'programação', 'qa']}}, 'duplicate': {'user': {'...</msg>
+<var>${data}</var>
+<arg>${EXECDIR}/Tests_web/resources/fixtures/${arquivo}</arg>
+<arg>encoding=utf-8</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-09-20T04:00:56.630983" elapsed="0.011379"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-09-04T17:31:18.803302" level="INFO">Token gerado: QpwL5tke4Pnpja7X4</msg>
-<arg>Token gerado: ${resposta["token"]}</arg>
+<msg time="2025-09-20T04:00:56.646177" level="INFO">{'create': {'user': {'name': 'tester', 'email': 'test@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 01', 'tags': ['atividades', 'programação', 'qa']}}, 'duplicate': {'user': {'name': 'tester02', 'email': 'test02@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 02', 'tags': []}}, 'tags_limit': {'user': {'name': 'tester03', 'email': 'test03@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 03', 'tags': ['python', 'programação', 'qa', 'robotframework']}}, 'done': {'user': {'name': 'tester04', 'email': 'test04@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 04', 'tags': ['criar', 'programação', 'python']}}, 'delete': {'user': {'name': 'tester05', 'email': 'test05@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 05', 'tags': ['tests', 'librarybrwoser', 'robot']}}}</msg>
+<arg>${data}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-09-04T17:31:18.801875" elapsed="0.001883"/>
+<status status="PASS" start="2025-09-20T04:00:56.644159" elapsed="0.002580"/>
 </kw>
-<tag>POST</tag>
-<status status="PASS" start="2025-09-04T17:31:17.965756" elapsed="0.843907"/>
+<return>
+<value>${data}[${cenario}]</value>
+<status status="PASS" start="2025-09-20T04:00:56.647178" elapsed="0.000694"/>
+</return>
+<msg time="2025-09-20T04:00:56.648781" level="INFO">${data} = {'user': {'name': 'tester05', 'email': 'test05@mail.com', 'password': 'senha123'}, 'task': {'name': 'fazer atividade 05', 'tags': ['tests', 'librarybrwoser', 'robot']}}</msg>
+<var>${data}</var>
+<arg>tasks.json</arg>
+<arg>delete</arg>
+<status status="PASS" start="2025-09-20T04:00:56.628219" elapsed="0.021876"/>
+</kw>
+<kw name="limpar user do banco de dados" owner="database">
+<arg>${data}[user][email]</arg>
+<status status="PASS" start="2025-09-20T04:00:56.661594" elapsed="0.490001"/>
+</kw>
+<kw name="inserir usuario no banco de dados" owner="database">
+<msg time="2025-09-20T04:00:57.294897" level="INFO">{'name': 'tester05', 'email': 'test05@mail.com', 'password': 'senha123'}</msg>
+<arg>${data}[user]</arg>
+<status status="PASS" start="2025-09-20T04:00:57.203283" elapsed="0.092165"/>
+</kw>
+<kw name="criar sessao" owner="services">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-09-20T04:00:57.343888" level="INFO">${payload} = {'email': 'test05@mail.com', 'password': 'senha123'}</msg>
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.340856" elapsed="0.004842"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-09-20T04:00:57.714845" level="INFO">POST Request : url=http://localhost:3333/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '52', 'Content-Type': 'application/json'} 
+ body=b'{"email": "test05@mail.com", "password": "senha123"}' 
+ </msg>
+<msg time="2025-09-20T04:00:57.715365" level="INFO">POST Response : url=http://localhost:3333/sessions 
+ status=200, reason=OK 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '575', 'ETag': 'W/"23f-KfmOBCcGEao38ZNIyFfQysNKh80"', 'Date': 'Sat, 20 Sep 2025 07:00:57 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"user":{"_id":"68ce51290afcf5f7e0a76ce2","name":"tester05","email":"test05@mail.com","password":"$2b$08$ZCsPaPJW0AlwHKJtZ/H3d.WkL9nTHwdZarfdGzhP19fEqyeK6YCGe"},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U1MTI5MGFmY2Y1ZjdlMGE3NmNlMiIsInVzZXIiOnsiX2lkIjoiNjhjZTUxMjkwYWZjZjVmN2UwYTc2Y2UyIiwibmFtZSI6InRlc3RlcjA1IiwiZW1haWwiOiJ0ZXN0MDVAbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwOCRaQ3NQYVBKVzBBbHdIS0p0Wi9IM2QuV2tMOW5USHdkWmFyZmRHemhQMTlmRXF5ZUs2WUNHZSJ9LCJpYXQiOjE3NTgzNTE2NTcsImV4cCI6MTc1OTIxNTY1N30.9T69hzqr2EmBJ6zZ1xN3Cy3nyt0Y4ufKqO4mYZsVdGc","expires_in":"10d"} 
+ </msg>
+<msg time="2025-09-20T04:00:57.715755" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>url=http://localhost:3333/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.347645" elapsed="0.368276"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-09-20T04:00:57.718777" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U1MTI5MGFmY2Y1ZjdlMGE3NmNlMiIsInVzZXIiOnsiX2lkIjoiNjhjZTUxMjkwYWZjZjVmN2UwYTc2Y2UyIiwibmFtZSI6InRlc3RlcjA1IiwiZW1haWwiOiJ0ZXN0MDVAbWFpbC5jb20iLCJwYXN...</msg>
+<var>${token}</var>
+<arg>${resp.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.716322" elapsed="0.002959"/>
+</kw>
+<kw name="Set Test Variable" owner="BuiltIn">
+<msg time="2025-09-20T04:00:57.720784" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U1MTI5MGFmY2Y1ZjdlMGE3NmNlMiIsInVzZXIiOnsiX2lkIjoiNjhjZTUxMjkwYWZjZjVmN2UwYTc2Y2UyIiwibmFtZSI6InRlc3RlcjA1IiwiZW1haWwiOiJ0ZXN0MDVAbWFpbC5jb20iLCJwYXN...</msg>
+<arg>${token}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.719795" elapsed="0.001426"/>
+</kw>
+<arg>${data}[user]</arg>
+<status status="PASS" start="2025-09-20T04:00:57.338903" elapsed="0.383064"/>
+</kw>
+<kw name="cadastrar nova tarefa" owner="services">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-09-20T04:00:57.726826" level="INFO">${headers} = {'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U1MTI5MGFmY2Y1ZjdlMGE3NmNlMiIsInVzZXIiOnsiX2lkIjoiNjhjZTUxMjkwYWZjZjVmN2UwYTc2Y2UyIiwibmFtZSI6InRlc3RlcjA1IiwiZW1haWwiOiJ0ZXN0MDVA...</msg>
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.725392" elapsed="0.001866"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2025-09-20T04:00:57.873503" level="INFO">POST Request : url=http://localhost:3333/tasks 
+ path_url=/tasks 
+ headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U1MTI5MGFmY2Y1ZjdlMGE3NmNlMiIsInVzZXIiOnsiX2lkIjoiNjhjZTUxMjkwYWZjZjVmN2UwYTc2Y2UyIiwibmFtZSI6InRlc3RlcjA1IiwiZW1haWwiOiJ0ZXN0MDVAbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYiQwOCRaQ3NQYVBKVzBBbHdIS0p0Wi9IM2QuV2tMOW5USHdkWmFyZmRHemhQMTlmRXF5ZUs2WUNHZSJ9LCJpYXQiOjE3NTgzNTE2NTcsImV4cCI6MTc1OTIxNTY1N30.9T69hzqr2EmBJ6zZ1xN3Cy3nyt0Y4ufKqO4mYZsVdGc', 'Content-Length': '76', 'Content-Type': 'application/json'} 
+ body=b'{"name": "fazer atividade 05", "tags": ["tests", "librarybrwoser", "robot"]}' 
+ </msg>
+<msg time="2025-09-20T04:00:57.874432" level="INFO">POST Response : url=http://localhost:3333/tasks 
+ status=201, reason=Created 
+ headers={'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '154', 'ETag': 'W/"9a-aD6TGK1Z9JsjXVJfYkiAN9Vt+Sc"', 'Date': 'Sat, 20 Sep 2025 07:00:57 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"name":"fazer atividade 05","is_done":false,"tags":["tests","librarybrwoser","robot"],"user":"68ce51290afcf5f7e0a76ce2","_id":"68ce5129e808a37e27e8dbb9"} 
+ </msg>
+<arg>url=http://localhost:3333/tasks</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=201</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.727981" elapsed="0.147182"/>
+</kw>
+<arg>${data}[task]</arg>
+<status status="PASS" start="2025-09-20T04:00:57.723764" elapsed="0.152080"/>
+</kw>
+<kw name="submeter formulario de login" owner="loginPage">
+<kw name="Fill Text" owner="Browser">
+<msg time="2025-09-20T04:00:57.889144" level="INFO">Fills the text 'test05@mail.com' in the given field.</msg>
+<arg>css=input[placeholder$=mail]</arg>
+<arg>${user}[email]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<status status="PASS" start="2025-09-20T04:00:57.882655" elapsed="0.180963"/>
+</kw>
+<kw name="Fill Text" owner="Browser">
+<msg time="2025-09-20T04:00:58.065807" level="INFO">Fills the text 'senha123' in the given field.</msg>
+<arg>css=input[placeholder=Senha]</arg>
+<arg>${user}[password]</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.064108" elapsed="0.051074"/>
+</kw>
+<kw name="Click" owner="Browser">
+<msg time="2025-09-20T04:00:58.117185" level="INFO">Clicks the element 'css=button &gt;&gt; text=Entrar'.</msg>
+<arg>css=button &gt;&gt; text=Entrar</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.115703" elapsed="0.126462"/>
+</kw>
+<arg>${data}[user]</arg>
+<status status="PASS" start="2025-09-20T04:00:57.878564" elapsed="0.364335"/>
+</kw>
+<kw name="conferencia de login" owner="header">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-09-20T04:00:58.250473" level="INFO">${seletor} = css=header .right small</msg>
+<var>${seletor}</var>
+<arg>css=header .right small</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.249092" elapsed="0.003559"/>
+</kw>
+<kw name="Wait For Elements State" owner="Browser">
+<msg time="2025-09-20T04:00:58.432282" level="INFO">Waited for Element with selector css=header .right small at state visible</msg>
+<arg>${seletor}</arg>
+<arg>visible</arg>
+<arg>5</arg>
+<tag>PageContent</tag>
+<tag>Wait</tag>
+<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.253478" elapsed="0.179495"/>
+</kw>
+<kw name="Get Text" owner="Browser">
+<msg time="2025-09-20T04:00:58.541228" level="INFO">Text: 'Olá, tester05'</msg>
+<arg>${seletor}</arg>
+<arg>equal</arg>
+<arg>Olá, ${name}</arg>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+<doc>Returns text attribute of the element found by ``selector``.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.433602" elapsed="0.108088"/>
+</kw>
+<arg>${data}[user][name]</arg>
+<status status="PASS" start="2025-09-20T04:00:58.247332" elapsed="0.294688"/>
+</kw>
+<kw name="exclusao de tarefa" owner="createTaskPage">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-09-20T04:00:58.550177" level="INFO">${seletor} = xpath=//strong[text()="fazer atividade 05"]/..//button[@class="task-remove"]</msg>
+<var>${seletor}</var>
+<arg>xpath=//strong[text()="${task_name}"]/..//button[@class="task-remove"]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.548829" elapsed="0.005245"/>
+</kw>
+<kw name="Wait For Elements State" owner="Browser">
+<msg time="2025-09-20T04:00:58.579314" level="INFO">Waited for Element with selector xpath=//strong[text()="fazer atividade 05"]/..//button[@class="task-remove"] at state visible</msg>
+<arg>${seletor}</arg>
+<arg>visible</arg>
+<arg>5</arg>
+<tag>PageContent</tag>
+<tag>Wait</tag>
+<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.554759" elapsed="0.025420"/>
+</kw>
+<kw name="Click" owner="Browser">
+<msg time="2025-09-20T04:00:58.582492" level="INFO">Clicks the element 'xpath=//strong[text()="fazer atividade 05"]/..//button[@class="task-remove"]'.</msg>
+<arg>${seletor}</arg>
+<tag>PageContent</tag>
+<tag>Setter</tag>
+<doc>Simulates mouse click on the element found by ``selector``.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.580902" elapsed="0.047747"/>
+</kw>
+<arg>${data}[task][name]</arg>
+<status status="PASS" start="2025-09-20T04:00:58.546993" elapsed="0.082158"/>
+</kw>
+<kw name="conferir exclusão da tarefa" owner="createTaskPage">
+<kw name="Wait For Elements State" owner="Browser">
+<msg time="2025-09-20T04:00:58.804539" level="INFO">Waited for Element with selector css=.task-todo &gt;&gt; text=fazer atividade 05 at state detached</msg>
+<arg>css=.task-todo &gt;&gt; text=${task_name}</arg>
+<arg>detached</arg>
+<arg>5</arg>
+<tag>PageContent</tag>
+<tag>Wait</tag>
+<doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.673341" elapsed="0.131837"/>
+</kw>
+<arg>${data}[task][name]</arg>
+<status status="PASS" start="2025-09-20T04:00:58.670476" elapsed="0.135002"/>
+</kw>
+<kw name="Take Screenshot" owner="Browser" type="TEARDOWN">
+<msg time="2025-09-20T04:00:59.201511" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="browser/screenshot/robotframework-browser-screenshot-1.png" target="_blank"&gt;&lt;img src="browser/screenshot/robotframework-browser-screenshot-1.png" width="800px"/&gt;&lt;/a&gt;</msg>
+<tag>PageContent</tag>
+<doc>Takes a screenshot of the current window or element and saves it to disk.</doc>
+<status status="PASS" start="2025-09-20T04:00:58.807047" elapsed="0.395614"/>
+</kw>
+<msg time="2025-09-20T04:00:59.243013" level="INFO">Switching context to context=23cec0d1-2944-4995-89ff-10eb0e44a0d1 in CURRENT</msg>
+<msg time="2025-09-20T04:00:59.266177" level="INFO">Successfully changed active context: context=23cec0d1-2944-4995-89ff-10eb0e44a0d1</msg>
+<msg time="2025-09-20T04:00:59.466990" level="INFO">Successfully closed Context</msg>
+<status status="PASS" start="2025-09-20T04:00:49.223787" elapsed="9.980002"/>
 </test>
-<status status="PASS" start="2025-09-04T17:31:17.384201" elapsed="1.429177"/>
+<doc>cenarios de teste de remoção de tarefas</doc>
+<status status="PASS" start="2025-09-20T04:00:47.217124" elapsed="12.342128"/>
 </suite>
 <statistics>
 <total>
 <stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="1" fail="0" skip="0">POST</stat>
 </tag>
 <suite>
-<stat name="Testing Api" id="s1" pass="1" fail="0" skip="0">Testing Api</stat>
+<stat name="Delete" id="s1" pass="1" fail="0" skip="0">Delete</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2025-09-04T17:31:17.447754" level="WARN">Error in file 'c:\Users\Andressa\Documents\PB-Compass\test_api\keywords\testing_api.resource' on line 114: The '[Return]' setting is deprecated. Use the 'RETURN' statement instead.</msg>
-<msg time="2025-09-04T17:31:18.779986" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
 </errors>
 </robot>
